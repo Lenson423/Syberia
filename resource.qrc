@@ -1,5 +1,5 @@
-<!DOCTYPE RCC><RCC version="1.0">
-    <qresource prefix="/">
+<RCC>
+    <qresource >
         <file>images/tmp.jpg</file>
         <file>music/grenada-grenada.mp3</file>
     </qresource>

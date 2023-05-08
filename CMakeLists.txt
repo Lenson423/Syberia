@@ -17,13 +17,13 @@ find_package(Qt6 COMPONENTS
         REQUIRED)
 
 add_executable(untitled2 resource.qrc main.cpp mainwindow.h mainwindow.cpp Entity/Entity.cpp Entity/Entity.h
-        Entity/NPC.cpp Entity/NPC.h Entity/Person.cpp Entity/Person.h Controller.cpp Controller.h)
+        Entity/NPC.cpp Entity/NPC.h Entity/Person.cpp Entity/Person.h workDirrectory/Controller.cpp workDirrectory/Controller.h "Locations and objects/Location.cpp" "Locations and objects/Location.h" "Locations and objects/Block.cpp" "Locations and objects/Block.h" "Locations and objects/Object.cpp" "Locations and objects/Object.h" Dialog.cpp Dialog.h "Locations and objects/Item.cpp" "Locations and objects/Item.h" Inventory.cpp Inventory.h workDirrectory/Scene.cpp workDirrectory/Scene.h)
 target_link_libraries(untitled2
         Qt::Core
         Qt::Gui
         Qt::Widgets
-        Qt6::Multimedia
-        Qt6::MultimediaWidgets
+        Qt::Multimedia
+        Qt::MultimediaWidgets
         )
 
 if (WIN32 AND NOT DEFINED CMAKE_TOOLCHAIN_FILE)
