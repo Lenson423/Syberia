@@ -1,12 +1,19 @@
-//
-// Created by user on 08.05.2023.
-//
-
 #ifndef UNTITLED2_INVENTORY_H
 #define UNTITLED2_INVENTORY_H
 
+#include "LocationsAndObjects/Item.h"
+
+#include <QVector>
 
 class Inventory {
+private:
+    QVector<Item> items;
+public:
+    Inventory() = default;
+
+    void addItem(const Item &);
+
+    void deleteItemWithId(int);
 
 };
 
