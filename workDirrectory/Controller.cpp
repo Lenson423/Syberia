@@ -1,5 +1,9 @@
-//
-// Created by user on 07.05.2023.
-//
-
 #include "Controller.h"
+
+void Controller::addItemToInventory(Item item) {
+    inventory.addItem(item);
+}
+
+void Controller::deleteItemToInventory(int id) {
+    inventory.deleteItemWithId(id);
+}

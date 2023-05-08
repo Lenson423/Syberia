@@ -3,8 +3,13 @@
 
 #include "Entity.h"
 
-class Person : Entity {
-
+class Person : public Entity {
+private:
+    int speedX;
+    int speedY;
+public:
+    Person(QPointF , int, int, int);
+    void setNewSpeed(int, int);
 };
 
 
