@@ -1,0 +1,10 @@
+#ifndef UNTITLED2_CONTROLLER_H
+#define UNTITLED2_CONTROLLER_H
+
+
+class Controller {
+
+};
+
+
+#endif //UNTITLED2_CONTROLLER_H
