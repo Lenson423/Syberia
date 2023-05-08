@@ -1,0 +1,122 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+abstract class Object
+interface Location
+interface Controller
+interface Block
+abstract class Entity
+interface NPC
+interface Person
+interface Dialog
+interface Item
+interface Inventory
+class Scene
+
+Block <|-- Object
+Item <|-- Object
+NPC -- Dialog
+NPC <|-- Entity
+Person <|-- Entity
+Controller -- Location
+Mainwindow -- Controller
+Mainwindow -- Scene
+Controller -- Scene
+
+class Scene{
+-QGraphicsScene scene
++void updateNpcPosition()
++void drawNewLocation()
++void DrawItem()
++void paintEvent()
+}
+
+class Controller{
++void loadNewLocation()
++void updateAllNpcPositions()
++void addItemToInventory()
+-Location qurentLocation
+-Person person
+-Inventory inventory
+}
+
+Location -- NPC
+Inventory -- Item
+Location -- Block
+Controller -- Inventory
+Controller --Person
+
+class Location{
+-QVector<NPC> NpcList
+-QVector<QVector<Block>> blocks;
+
++void readInformationFromJson()
++QVector<NPC> getNpc()
++QVector<QVector<Block>> getBlocks()
+}
+
+abstract class Entity{
+    -int id
+    -QPointF currentPosition
+    +void getPosition()
+    +void setNewPosition()
+}
+
+class Person{
+-int speed
++void setNewSpeed()
+}
+
+interface Block{
+    -QSize size
+    +void setBlockSize();
+}
+
+interface Dialog{
+    -QVector<QString> replics
+    +void addReplic()
+    +QVector<QString> getReplics()
+}
+
+class NPC{
+-QVector<Dialog> dialogs
++void addDialogs()
++void getDialogs()
+}
+
+class Mainwindow {
+QTimer timer
+Controller controller
+Scene scene
+void mousePressEvent()
+void keyPressEvent()
+void paintEvent()
+
+}
+
+abstract class Object{
+    -int id;
+    -QImage image
+    +void setImage()
+}
+
+class Inventory{
+QVector<Item> items
+void addItem()
+void deleteItemWithID()
+}
+
+enum ItemClass{
+    Newspaper
+    ForQuests
+    }
+
+interface Item{
+    -ItemClass class
+    +void setClass()
+    +ItemClass getClass()
+}
+
+Item -- ItemClass
+
+@enduml
