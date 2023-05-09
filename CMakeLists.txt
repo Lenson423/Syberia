@@ -16,15 +16,31 @@ find_package(Qt6 COMPONENTS
         MultimediaWidgets
         REQUIRED)
 
-add_executable(untitled2 resource.qrc main.cpp mainwindow.h mainwindow.cpp Entity/Entity.cpp Entity/Entity.h
-        Entity/NPC.cpp Entity/NPC.h Entity/Person.cpp Entity/Person.h workDirrectory/Controller.cpp workDirrectory/Controller.h "LocationsAndObjects/Location.cpp" "LocationsAndObjects/Location.h" "LocationsAndObjects/Block.cpp" "LocationsAndObjects/Block.h" "LocationsAndObjects/Object.cpp" "LocationsAndObjects/Object.h" Dialog.cpp Dialog.h "LocationsAndObjects/Item.cpp" "LocationsAndObjects/Item.h" Inventory.cpp Inventory.h workDirrectory/Scene.cpp workDirrectory/Scene.h)
+add_executable(untitled2 sources.qrc main.cpp windows/mainwindow.h windows/mainwindow.cpp Entity/Entity.cpp Entity/Entity.h
+        Entity/NPC.cpp Entity/NPC.h Entity/Person.cpp Entity/Person.h workDirrectory/Controller.cpp
+        workDirrectory/Controller.h "LocationsAndObjects/Location.cpp" "LocationsAndObjects/Location.h"
+        "LocationsAndObjects/Block.cpp" "LocationsAndObjects/Block.h" "LocationsAndObjects/Object.cpp"
+        "LocationsAndObjects/Object.h" Dialog.cpp Dialog.h "LocationsAndObjects/Item.cpp" "LocationsAndObjects/Item.h"
+        Inventory.cpp Inventory.h workDirrectory/Scene.cpp workDirrectory/Scene.h
+        windows/AnotherWindow.cpp windows/AnotherWindow.h)
+
+find_package(Qt6 REQUIRED COMPONENTS Gui)
+
 target_link_libraries(untitled2
-        Qt::Core
-        Qt::Gui
-        Qt::Widgets
-        Qt::Multimedia
-        Qt::MultimediaWidgets
+        Qt6::Core
+        Qt6::Gui
+        Qt6::Widgets
+        Qt6::Multimedia
+        Qt6::MultimediaWidgets
         )
+
+set(RESOURCE_FILES
+        images/tmp.jpg)
+
+set_target_properties(untitled2 PROPERTIES
+        MACOSX_BUNDLE TRUE
+        MACOSX_FRAMEWORK_IDENTIFIER org.cmake.ExecutableTarget
+        RESOURCE "${RESOURCE_FILES}")
 
 if (WIN32 AND NOT DEFINED CMAKE_TOOLCHAIN_FILE)
     set(DEBUG_SUFFIX)
