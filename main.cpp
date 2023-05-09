@@ -1,5 +1,5 @@
 
-#include "mainwindow.h"
+#include "windows/mainwindow.h"
 
 #include <QApplication>
 
@@ -7,6 +7,7 @@
 int main(int argc, char *argv[]) {
     QApplication a(argc, argv);
     MainWindow w;
+    w.setFixedSize(880, 580);
     w.show();
     return a.exec();
 }

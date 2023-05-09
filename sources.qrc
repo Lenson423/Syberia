@@ -1,0 +1,12 @@
+<!DOCTYPE RCC><RCC version="1.0">
+    <qresource>
+        <file>sources/background.png</file>
+        <file>sources/character.png</file>
+        <file>sources/enemy.png</file>
+        <file>sources/menu_background.png</file>
+        <file>sources/exit_button.png</file>
+        <file>sources/load_game_button.png</file>
+        <file>sources/new_game_button.png</file>
+        <file>sources/settings_button.png</file>
+    </qresource>
+</RCC>
