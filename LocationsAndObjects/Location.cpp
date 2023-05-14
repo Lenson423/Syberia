@@ -3,15 +3,33 @@
 //
 
 #include "Location.h"
+#include "../Levels/Level1.h"
 
-QVector<QVector<Block>> Location::getBlocks() {
-    return blocks;
+QPolygon Location::getBorder() {
+    return border;
 }
 
 QVector<NPC> Location::getNpc() {
     return npcList;
 }
 
-void Location::readInformationFromJson(const QString&) {
+void Location::readInformationFromJson(int level) {
+    switch(level){
+        case 1:
+            border = Level1::getBorder();
+            npcList = Level1::getNPC();
+            itemList = Level1::getItems();
+            font = Level1::getFont();
+            break;
+        default:
+            break;
+    }
+}
 
+QVector<Item> Location::getItem() {
+    return itemList;
+}
+
+QPixmap Location::getFont() {
+    return font;
 }
