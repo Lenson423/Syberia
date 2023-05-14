@@ -5,11 +5,12 @@
 
 class Person : public Entity {
 private:
-    int speedX;
-    int speedY;
+    int speedX = 0;
+    int speedY = 0;
 public:
     Person(QPointF , int, int, int);
     void setNewSpeed(int, int);
+    std::pair<int, int> getSpeed();
 };
 
 

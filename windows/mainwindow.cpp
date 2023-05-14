@@ -2,7 +2,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-
 MainWindow::MainWindow(QWidget *parent)
         : QMainWindow(parent), ui(new Ui::MainWindow) {
     ui->setupUi(this);
@@ -15,7 +14,7 @@ MainWindow::~MainWindow() {
 
 void MainWindow::paintEvent(QPaintEvent *event) {
     gameWindow = new AnotherWindow();
-    gameWindow->resize(880, 580);
+    gameWindow->resize(845, 575);
 
     scene = new QGraphicsScene();
     view = new QGraphicsView(this);
@@ -24,7 +23,6 @@ void MainWindow::paintEvent(QPaintEvent *event) {
     view->setGeometry(0, 0, 900, 600);
     QPixmap map(":/sources/menu_background.png");
     scene->setBackgroundBrush(QBrush(map));
-    //scene->addPixmap(QPixmap(":/sources/exit_button.png"));
 
     newGameButton = new QPushButton(view);
     newGameButton->setGeometry(50, 150, 255, 30);

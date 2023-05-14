@@ -15,3 +15,7 @@ void Person::setNewSpeed(int newSpeedX, int newSpeedY) {
     speedX = newSpeedX;
     speedY = newSpeedY;
 }
+
+std::pair<int, int> Person::getSpeed() {
+    return {speedX, speedY};
+}

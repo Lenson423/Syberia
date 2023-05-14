@@ -4,19 +4,26 @@
 #include <QVector>
 #include "../Entity/NPC.h"
 #include "Block.h"
+#include "Item.h"
 
 class Location {
 private:
     QVector<NPC> npcList;
-    QVector<QVector<Block>> blocks;
+    QVector<Item> itemList;
+    QPolygon border;
+    QPixmap font;
 public:
     Location() = default;
 
-    QVector<QVector<Block>> getBlocks();
+    QPolygon getBorder();
 
     QVector<NPC> getNpc();
 
-    void readInformationFromJson(const QString&); //ToDo
+    QVector<Item> getItem();
+
+    QPixmap getFont();
+
+    void readInformationFromJson(int); //ToDo
 
 };
 

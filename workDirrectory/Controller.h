@@ -12,8 +12,13 @@ private:
     Location curentLocation;
 
 public:
-    void addItemToInventory(Item);
+    void addItemToInventory(const Item&);
     void deleteItemToInventory(int);
+    void loadNewLocation(int);
+
+    Location getLocation();
+    Person& getPerson();
+    Inventory getInventory();
 
 public:
 

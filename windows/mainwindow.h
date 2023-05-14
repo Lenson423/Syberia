@@ -25,8 +25,6 @@ public:
 private:
     Ui::MainWindow *ui;
 
-    Controller controller;
-
     QGraphicsScene* scene;
 
     QGraphicsView* view;
