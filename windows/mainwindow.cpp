@@ -14,7 +14,7 @@ MainWindow::~MainWindow() {
 
 void MainWindow::paintEvent(QPaintEvent *event) {
     gameWindow = new AnotherWindow();
-    gameWindow->resize(845, 575);
+    gameWindow->setFixedSize(845, 575);
 
     scene = new QGraphicsScene();
     view = new QGraphicsView(this);
