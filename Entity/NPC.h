@@ -7,14 +7,16 @@
 
 class NPC : public Entity {
 private:
-    QVector<Dialog> dialogs;
+    QVector<std::pair<Dialog, QString>> dialogs;
     QPixmap sprite;
 public:
-    NPC(QPointF, int, const QVector<Dialog>&, const QString&);
+    NPC() = default;
+    ~NPC() = default;
+    NPC(QPointF, int, const QVector<std::pair<Dialog, QString>>&, const QString&);
 
-    void addDialog(const Dialog&);
+    void addDialog(const std::pair<Dialog, QString>&);
 
-    QVector<Dialog> getDialogs();
+    QVector<std::pair<Dialog, QString>> getDialogs();
 
     QPixmap getSprite();
 };

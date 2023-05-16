@@ -4,18 +4,18 @@
 
 #include "NPC.h"
 
-NPC::NPC(QPointF pos, int newId, const QVector<Dialog>& dialog, const QString& file) {
+NPC::NPC(QPointF pos, int newId, const QVector<std::pair<Dialog, QString>>& dialog, const QString& file) {
     currentPosition = pos;
     id = newId;
     dialogs = dialog;
     sprite = QPixmap(file);
 }
 
-void NPC::addDialog(const Dialog& newDialog) {
+void NPC::addDialog(const std::pair<Dialog, QString>& newDialog) {
     dialogs.push_back(newDialog);
 }
 
-QVector<Dialog> NPC::getDialogs() {
+QVector<std::pair<Dialog, QString>> NPC::getDialogs() {
     return dialogs;
 }
 
