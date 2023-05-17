@@ -3,7 +3,7 @@
 //
 
 #include "Location.h"
-#include "../Levels/Level1.h"
+#include "../level/Level.h"
 
 QPolygon Location::getBorder() {
     return border;
@@ -14,16 +14,12 @@ QVector<NPC> Location::getNpc() {
 }
 
 void Location::readInformationFromJson(int level) {
-    switch(level){
-        case 1:
-            border = Level1::getBorder();
-            npcList = Level1::getNPC();
-            itemList = Level1::getItems();
-            font = Level1::getFont();
-            break;
-        default:
-            break;
-    }
+    QString path = "level" + QString::number(level);
+    Level newLevel(path);
+    border = newLevel.getBorder();
+    npcList = newLevel.getNPC();
+    itemList = newLevel.getItems();
+    font = newLevel.getFont();
 }
 
 QVector<Item> Location::getItem() {

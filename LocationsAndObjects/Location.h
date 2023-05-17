@@ -23,7 +23,7 @@ public:
 
     QPixmap getFont();
 
-    void readInformationFromJson(int); //ToDo
+    void readInformationFromJson(int);
 
 };
 

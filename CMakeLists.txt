@@ -22,7 +22,7 @@ add_executable(untitled2 sources.qrc main.cpp windows/mainwindow.h windows/mainw
         "LocationsAndObjects/Block.cpp" "LocationsAndObjects/Block.h" "LocationsAndObjects/Object.cpp"
         "LocationsAndObjects/Object.h" Dialog.cpp Dialog.h "LocationsAndObjects/Item.cpp" "LocationsAndObjects/Item.h"
         Inventory.cpp Inventory.h
-        windows/AnotherWindow.cpp windows/AnotherWindow.h Levels/Level1.cpp Levels/Level1.h)
+        windows/AnotherWindow.cpp windows/AnotherWindow.h level/Level.cpp level/Level.h)
 
 find_package(Qt6 REQUIRED COMPONENTS Gui)
 

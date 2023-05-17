@@ -12,6 +12,7 @@ private:
     Inventory inventory;
     Person person{QPointF(0, 0), 0, 1, 1};
     Location curentLocation;
+
     QVector<QRect> buttonsForDialog;
     bool dialogIsActive = false;
     int currentDialog = 0;

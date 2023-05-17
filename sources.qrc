@@ -16,7 +16,7 @@
         <file>sources/cursor.png</file>
         <file>sources/dialog_font.png</file>
         <file>sources/dialog_border.png</file>
-        <file>level/level1/level1PersLoc.txt</file>
+        <file>level/level1/level1PersLoc</file>
         <file>level/level1/level1Border</file>
         <file>level/level1/level1Font</file>
         <file>level/level1/level1NPC</file>
