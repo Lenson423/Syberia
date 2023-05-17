@@ -1,7 +1,7 @@
 #include "Controller.h"
-#include "../Levels/Level1.h"
+#include "../level/Level.h"
 
-void Controller::addItemToInventory(const Item& item) {
+void Controller::addItemToInventory(const Item &item) {
     inventory.addItem(item);
 }
 
@@ -13,20 +13,17 @@ void Controller::loadNewLocation(int path) {
     Location location;
     location.readInformationFromJson(path);
     curentLocation = location;
-    switch(path){
-        case 1:
-            person.setPosition(Level1::getPersonLocation());
-            break;
-        default:
-            break;
-    }
+    QString newPath = "level" + QString::number(path);
+    Level level(newPath);
+    person.setPosition(level.getPersonLocation());
+
 }
 
 Location Controller::getLocation() {
     return curentLocation;
 }
 
-Person& Controller::getPerson() {
+Person &Controller::getPerson() {
     return person;
 }
 
@@ -66,6 +63,6 @@ void Controller::setCurrentNpc(const NPC &npc) {
     currentNPC = npc;
 }
 
-NPC* Controller::getNpc() {
+NPC *Controller::getNpc() {
     return &currentNPC;
 }

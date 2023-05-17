@@ -1,16 +1,18 @@
-#include "Level1.h"
+#include "Level.h"
 
-QPointF Level1::getPersonLocation() {
-    QFile file(":/level/level1/level1PersLoc.txt");
+QPointF Level::getPersonLocation() {
+    QString tmp1 = QString(":/level/") + path + QString("/") + path + QString("PersLoc");
+    QFile file(tmp1);
     file.open(QIODevice::ReadOnly | QIODevice::Text);
     QTextStream in(&file);
     QList<QString> tmp = in.readAll().split(" ");
     return {tmp[0].toDouble(), tmp[1].toDouble()};
 }
 
-QVector<NPC> Level1::getNPC() {
+QVector<NPC> Level::getNPC() {
     QVector<NPC> npc;
-    QFile file(":/level/level1/level1NPC");
+    QString tmp1 = QString(":/level/") + path + QString("/") + path + QString("NPC");
+    QFile file(tmp1);
     file.open(QIODevice::ReadOnly | QIODevice::Text);
     QTextStream input(&file);
     QList<QString> tmp = input.readAll().split("%");
@@ -45,8 +47,9 @@ QVector<NPC> Level1::getNPC() {
     return npc;
 }
 
-QPolygon Level1::getBorder() {
-    QFile file(":/level/level1/level1Border");
+QPolygon Level::getBorder() {
+    QString tmp1 = QString(":/level/") + path + QString("/") + path + QString("Border");
+    QFile file(tmp1);
     file.open(QIODevice::ReadOnly | QIODevice::Text);
     QTextStream in(&file);
     QList<QPoint> vertex;
@@ -58,13 +61,18 @@ QPolygon Level1::getBorder() {
     return QPolygon(vertex);
 }
 
-QVector<Item> Level1::getItems() {
+QVector<Item> Level::getItems() {
     return QVector<Item>{Item(0, QPixmap(":/sources/fance.png"), Item::ForQuests)};
 }
 
-QPixmap Level1::getFont() {
-    QFile file(":/level/level1/level1Font");
+QPixmap Level::getFont() {
+    QString tmp1 = QString(":/level/") + path + QString("/") + path + QString("Font");
+    QFile file(tmp1);
     file.open(QIODevice::ReadOnly | QIODevice::Text);
     QTextStream in(&file);
     return {in.readLine()};
+}
+
+Level::Level(const QString &newPath) {
+    path = newPath;
 }
