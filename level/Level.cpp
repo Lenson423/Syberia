@@ -12,7 +12,7 @@ QPointF Level::getPersonLocation() {
 QVector<NPC> Level::getNPC() {
     QVector<NPC> npc;
     QString tmp1 = QString(":/level/") + path + QString("/") + path + QString("NPC");
-    QFile file(tmp1);
+    QFile file(      tmp1);
     file.open(QIODevice::ReadOnly | QIODevice::Text);
     QTextStream input(&file);
     QList<QString> tmp = input.readAll().split("%");
@@ -61,7 +61,7 @@ QPolygon Level::getBorder() {
         vertex.push_back(QPoint(line.split(" ")[0].toInt(), line.split(" ")[1].toInt()));
         in.flush();
     }
-    return QPolygon(vertex);
+    return {vertex};
 }
 
 QVector<Item> Level::getItems() {

@@ -41,6 +41,7 @@ protected:
 
 private slots:
     void onNewGameButtonClicked();
+    void onLoadGameButtonClicked();
 };
 
 #endif // MAINWINDOW_H

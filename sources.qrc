@@ -28,5 +28,7 @@
         <file>level/level2/level2Font</file>
         <file>level/level2/level2NPC</file>
         <file>level/level2/level2Portal</file>
+        <file>sources/settings.png</file>
+        <file>sources/save.png</file>
     </qresource>
 </RCC>

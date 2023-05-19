@@ -28,22 +28,23 @@ void AnotherWindow::paintEvent(QPaintEvent *event) {
     } else if (mode == Dialog) {
         painter.drawPixmap(0, 0, QPixmap(":/sources/dialog_font.png"));
         painter.drawPixmap(175, 400, QPixmap(":/sources/dialog_border.png"));
-        if(controller.dialIsActive()){
+        if (controller.dialIsActive()) {
             painter.drawText(200, 435, currDialog.getReplics()[currDialog.getCurrentStep()]);
             currDialog.inkCurrentStep();
-           if(currDialog.getCurrentStep() == currDialog.getReplics().size()){
-               currDialog.eraseCurrentStep();
-               controller.setDialogActivity(false);
-          }
+            if (currDialog.getCurrentStep() == currDialog.getReplics().size()) {
+                currDialog.eraseCurrentStep();
+                controller.setDialogActivity(false);
+            }
 
-        }else{
+        } else {
             for (int i = 0; i < controller.getNpc()->getDialogs().size(); ++i) {
                 painter.drawText(200, 435 + i * 20, QString(controller.getNpc()->getDialogs()[i].second));
             }
         }
-    }else if (mode == Inventory){
-        screen.fill(QColorConstants::Black);
+    } else if (mode == Inventory) {
         painter.drawPixmap(0, 0, screen);
+        painter.drawPixmap(0, 0, QPixmap(":/sources/settings.png"));
+        painter.drawPixmap(50, 0, QPixmap(":/sources/save.png"));
     }
 }
 
@@ -76,7 +77,7 @@ void AnotherWindow::updatePicture() {
 
 
 void AnotherWindow::keyPressEvent(QKeyEvent *event) {
-    if(mode == Game){
+    if (mode == Game) {
         if (event->key() == Qt::Key_W) {
             controller.getPerson().setNewSpeed(0, -5);
         } else if (event->key() == Qt::Key_A) {
@@ -85,23 +86,25 @@ void AnotherWindow::keyPressEvent(QKeyEvent *event) {
             controller.getPerson().setNewSpeed(0, 5);
         } else if (event->key() == Qt::Key_D) {
             controller.getPerson().setNewSpeed(5, 0);
-        }else if (event->key() == Qt::Key_Escape) {
+        } else if (event->key() == Qt::Key_Escape) {
             screen = QWidget::grab();
             mode = Inventory;
+            repaint();
         }
-    }else if(mode == Mode::Dialog){
+    } else if (mode == Mode::Dialog) {
         if (event->key() == Qt::Key_Space) {
             repaint();
-        }else if(event->key() == Qt::Key_Escape && !controller.dialIsActive()){
+        } else if (event->key() == Qt::Key_Escape && !controller.dialIsActive()) {
             mode = Game;
         }
 
-    }else if ( mode == Mode::Inventory){
+    } else if (mode == Mode::Inventory) {
         if (event->key() == Qt::Key_Escape) {
             mode = Game;
             repaint();
         }
     }
+
 }
 
 bool AnotherWindow::checkNpcPosition(NPC &npc) {
@@ -127,14 +130,15 @@ void AnotherWindow::mousePressEvent(QMouseEvent *event) {
                     break;
                 }
             }
-            for(auto portal: controller.getLocation().getPortals()){
-                if(checkPortalPosition(portal)){
+            for (auto portal: controller.getLocation().getPortals()) {
+                if (checkPortalPosition(portal)) {
                     controller.loadNewLocation(portal.getNextLocationId());
+                    currentLevel = portal.getNextLocationId();
                     repaint();
                 }
             }
-        }else if (mode == Dialog) {
-            if(!controller.dialIsActive()) {
+        } else if (mode == Dialog) {
+            if (!controller.dialIsActive()) {
                 for (int i = 0; i < controller.getButtonsForDialog().size(); ++i) {
                     if (controller.getButtonsForDialog()[i].contains
                             (AnotherWindow::mapFromGlobal(QCursor::pos()), Qt::OddEvenFill)) {
@@ -145,6 +149,12 @@ void AnotherWindow::mousePressEvent(QMouseEvent *event) {
                     }
                 }
                 repaint();
+            }
+        } else if (mode == Inventory) {
+            if (QRect(0, 0, 50, 50).contains(controller.getPerson().getPosition().toPoint())) {
+                //ToDo
+            } else if (QRect(50, 0, 50, 50).contains(event->pos())) {
+                saveFile();
             }
         }
     }
@@ -162,4 +172,26 @@ bool AnotherWindow::checkPortalPosition(Portal &portal) {
            && distanceBetweenYouAndPortal < 95;
 }
 
+void AnotherWindow::saveFile() {
+    QString path = qApp->applicationDirPath(); //location of the file, assuming in application dir
+    QString name = "./syberia" + QTime::currentTime().toString("hh.mm.ss") + ".txt";
+    path.append(name);
+    QFile fileUrl(path);
+    if (fileUrl.open(QIODevice::ReadWrite | QIODevice::Text)) {
+        QTextStream out(&fileUrl);
+        out << currentLevel << Qt::endl;
+        out << controller.getPerson().getPosition().x() << " " << controller.getPerson().getPosition().y();
+    }
+}
+
+void AnotherWindow::loadFile(const QString& path) {
+    QFile fileUrl(path);
+    if (fileUrl.open(QIODevice::ReadWrite | QIODevice::Text)) {
+        QTextStream in(&fileUrl);
+        currentLevel = in.readLine().toInt();
+        controller.loadNewLocation(currentLevel);
+        QList<QString> tmp = in.readLine().split(" ");
+        controller.getPerson().setPosition(QPointF(tmp[0].toDouble(), tmp[1].toDouble()));
+    }
+}
 

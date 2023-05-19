@@ -1,4 +1,5 @@
 #include <QGridLayout>
+#include <QFileDialog>
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
@@ -22,6 +23,7 @@ MainWindow::MainWindow(QWidget *parent)
     loadGameButton = new QPushButton(view);
     loadGameButton->setGeometry(50, 200, 255, 30);
     loadGameButton->setStyleSheet("background-image: url(:/sources/load_game_button.png); ");
+    connect(loadGameButton, SIGNAL(clicked()), this, SLOT(onLoadGameButtonClicked()));
 
     settingsButton = new QPushButton(view);
     settingsButton->setGeometry(50, 250, 255, 30);
@@ -45,6 +47,20 @@ void MainWindow::paintEvent(QPaintEvent *event) {
 void MainWindow::onNewGameButtonClicked() {
     gameWindow = new AnotherWindow();
     gameWindow->setFixedSize(845, 575);
+    gameWindow->show();
+    this->close();
+}
+
+void MainWindow::onLoadGameButtonClicked() {
+    gameWindow = new AnotherWindow();
+    gameWindow->setFixedSize(845, 575);
+    QString filename = QFileDialog::getOpenFileName(
+            this,
+            tr("Sensor data"),
+            "C//",
+            "All Files (*.*)"
+    );
+    gameWindow->loadFile(filename);
     gameWindow->show();
     this->close();
 }
