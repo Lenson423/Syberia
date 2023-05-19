@@ -3,6 +3,7 @@
 
 #include "../Entity/NPC.h"
 #include "../LocationsAndObjects/Item.h"
+#include "../LocationsAndObjects/Portal.h"
 
 #include <QFile>
 #include <QUrl>
@@ -23,6 +24,8 @@ public:
     QPointF getPersonLocation();
 
     QVector<NPC> getNPC();
+
+    QVector<Portal> getPortals();
 
     QPolygon getBorder();
 

@@ -29,13 +29,6 @@ void AnotherWindow::paintEvent(QPaintEvent *event) {
         painter.drawPixmap(0, 0, QPixmap(":/sources/dialog_font.png"));
         painter.drawPixmap(175, 400, QPixmap(":/sources/dialog_border.png"));
         if(controller.dialIsActive()){
-
-           /*for (int i = 0; i < tmp.getReplics().size(); ++i){
-               //qDebug() << tmp.getReplics()[tmp.getCurrentStep()];
-               qDebug() << tmp.getReplics()[tmp.getCurrentStep()] << tmp.getCurrentStep();
-               painter.drawText(200, 435, tmp.getReplics()[tmp.getCurrentStep()]);
-               tmp.inkCurrentStep();
-           }*/
             painter.drawText(200, 435, currDialog.getReplics()[currDialog.getCurrentStep()]);
             currDialog.inkCurrentStep();
            if(currDialog.getCurrentStep() == currDialog.getReplics().size()){
@@ -51,6 +44,9 @@ void AnotherWindow::paintEvent(QPaintEvent *event) {
                 painter.drawRect(controller.getButtonsForDialog()[i]);
             }
         }
+    }else if (mode == Inventory){
+        screen.fill(QColorConstants::Black);
+        painter.drawPixmap(0, 0, screen);
     }
 }
 
@@ -86,6 +82,9 @@ void AnotherWindow::keyPressEvent(QKeyEvent *event) {
             controller.getPerson().setNewSpeed(0, 5);
         } else if (event->key() == Qt::Key_D) {
             controller.getPerson().setNewSpeed(5, 0);
+        }else if (event->key() == Qt::Key_Escape) {
+            screen = QWidget::grab();
+            mode = Inventory;
         }
     }else if(mode == Mode::Dialog){
         if (event->key() == Qt::Key_Space) {
@@ -94,6 +93,11 @@ void AnotherWindow::keyPressEvent(QKeyEvent *event) {
             mode = Game;
         }
 
+    }else if ( mode == Mode::Inventory){
+        if (event->key() == Qt::Key_Escape) {
+            mode = Game;
+            repaint();
+        }
     }
 }
 

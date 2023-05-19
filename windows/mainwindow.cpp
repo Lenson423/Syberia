@@ -6,16 +6,6 @@ MainWindow::MainWindow(QWidget *parent)
         : QMainWindow(parent), ui(new Ui::MainWindow) {
     ui->setupUi(this);
 
-}
-
-MainWindow::~MainWindow() {
-    delete ui;
-}
-
-void MainWindow::paintEvent(QPaintEvent *event) {
-    gameWindow = new AnotherWindow();
-    gameWindow->setFixedSize(845, 575);
-
     scene = new QGraphicsScene();
     view = new QGraphicsView(this);
     view->setScene(scene);
@@ -42,11 +32,19 @@ void MainWindow::paintEvent(QPaintEvent *event) {
     exitButton->setStyleSheet("background-image: url(:/sources/exit_button.png); ");
     connect(exitButton, SIGNAL(clicked()), this, SLOT(close()));
     view->show();
+}
 
+MainWindow::~MainWindow() {
+    delete ui;
+}
+
+void MainWindow::paintEvent(QPaintEvent *event) {
 
 }
 
 void MainWindow::onNewGameButtonClicked() {
+    gameWindow = new AnotherWindow();
+    gameWindow->setFixedSize(845, 575);
     gameWindow->show();
     this->close();
 }
