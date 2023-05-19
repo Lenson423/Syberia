@@ -16,9 +16,17 @@
         <file>sources/cursor.png</file>
         <file>sources/dialog_font.png</file>
         <file>sources/dialog_border.png</file>
+        <file>sources/cursor2.png</file>
+        <file>sources/room(not_finish).png</file>
         <file>level/level1/level1PersLoc</file>
         <file>level/level1/level1Border</file>
         <file>level/level1/level1Font</file>
         <file>level/level1/level1NPC</file>
+        <file>level/level1/level1Portal</file>
+        <file>level/level2/level2PersLoc</file>
+        <file>level/level2/level2Border</file>
+        <file>level/level2/level2Font</file>
+        <file>level/level2/level2NPC</file>
+        <file>level/level2/level2Portal</file>
     </qresource>
 </RCC>

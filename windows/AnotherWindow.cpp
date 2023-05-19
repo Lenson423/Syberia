@@ -10,7 +10,7 @@ AnotherWindow::AnotherWindow(QWidget *parent) :
     controller.loadNewLocation(currentLevel);
 
     connect(&timer, SIGNAL(timeout()), SLOT(updatePicture()));
-    timer.start(10);
+    timer.start(20);
 }
 
 AnotherWindow::~AnotherWindow() {
@@ -40,9 +40,6 @@ void AnotherWindow::paintEvent(QPaintEvent *event) {
             for (int i = 0; i < controller.getNpc()->getDialogs().size(); ++i) {
                 painter.drawText(200, 435 + i * 20, QString(controller.getNpc()->getDialogs()[i].second));
             }
-            for (int i = 0; i < controller.getNpc()->getDialogs().size(); ++i) {
-                painter.drawRect(controller.getButtonsForDialog()[i]);
-            }
         }
     }else if (mode == Inventory){
         screen.fill(QColorConstants::Black);
@@ -60,11 +57,17 @@ void AnotherWindow::updatePicture() {
             repaint();
         }
 
+        ui->centralwidget->setCursor(QCursor());
+
         for (auto npc: controller.getLocation().getNpc()) {
             if (checkNpcPosition(npc)) {
                 ui->centralwidget->setCursor(QCursor(QPixmap(":/sources/cursor.png")));
-            } else {
-                ui->centralwidget->setCursor(QCursor());
+            }
+        }
+
+        for (auto portal: controller.getLocation().getPortals()) {
+            if (checkPortalPosition(portal)) {
+                ui->centralwidget->setCursor(QCursor(QPixmap(":/sources/cursor2.png")));
             }
         }
     } else if (mode == Dialog) {
@@ -124,6 +127,12 @@ void AnotherWindow::mousePressEvent(QMouseEvent *event) {
                     break;
                 }
             }
+            for(auto portal: controller.getLocation().getPortals()){
+                if(checkPortalPosition(portal)){
+                    controller.loadNewLocation(portal.getNextLocationId());
+                    repaint();
+                }
+            }
         }else if (mode == Dialog) {
             if(!controller.dialIsActive()) {
                 for (int i = 0; i < controller.getButtonsForDialog().size(); ++i) {
@@ -143,6 +152,14 @@ void AnotherWindow::mousePressEvent(QMouseEvent *event) {
 
 void AnotherWindow::loadCurrnetDialog() {
     currDialog = controller.getNpc()->getDialogs()[controller.getDialogNum()].first;
+}
+
+bool AnotherWindow::checkPortalPosition(Portal &portal) {
+    auto distanceBetweenYouAndPortal = (controller.getPerson().getPosition() - portal.getPortalBorder().topLeft())
+            .manhattanLength();
+    return QPolygon(portal.getPortalBorder()).containsPoint(
+            AnotherWindow::mapFromGlobal(QCursor::pos()), Qt::OddEvenFill)
+           && distanceBetweenYouAndPortal < 95;
 }
 
 

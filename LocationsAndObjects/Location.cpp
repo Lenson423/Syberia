@@ -3,7 +3,6 @@
 //
 
 #include "Location.h"
-#include "../level/Level.h"
 
 QPolygon Location::getBorder() {
     return border;
@@ -20,6 +19,7 @@ void Location::readInformationFromJson(int level) {
     npcList = newLevel.getNPC();
     itemList = newLevel.getItems();
     font = newLevel.getFont();
+    portals = newLevel.getPortals();
 }
 
 QVector<Item> Location::getItem() {
@@ -28,4 +28,8 @@ QVector<Item> Location::getItem() {
 
 QPixmap Location::getFont() {
     return font;
+}
+
+QVector<Portal> Location::getPortals() {
+    return portals;
 }
