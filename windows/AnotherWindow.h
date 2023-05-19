@@ -7,6 +7,9 @@
 #include <QPainter>
 #include <QTimer>
 #include <QKeyEvent>
+#include <QTime>
+#include <QDir>
+#include <QIODevice>
 
 #include "../workDirrectory/Controller.h"
 
@@ -21,10 +24,12 @@ Q_OBJECT
 public:
     explicit AnotherWindow(QWidget *parent = nullptr);
     ~AnotherWindow() override;
-    bool checkNpcPosition(NPC&);
-    bool checkPortalPosition(Portal&);
+    void loadFile(const QString&);
 
 protected:
+    bool checkNpcPosition(NPC&);
+    bool checkPortalPosition(Portal&);
+    void saveFile();
 
     void mousePressEvent(QMouseEvent *) override;
 
