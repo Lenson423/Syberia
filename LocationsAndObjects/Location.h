@@ -3,6 +3,7 @@
 
 #include <QVector>
 #include "../Entity/NPC.h"
+#include "../level/Level.h"
 #include "Block.h"
 #include "Item.h"
 
@@ -12,6 +13,7 @@ private:
     QVector<Item> itemList;
     QPolygon border;
     QPixmap font;
+    QVector<Portal> portals;
 public:
     Location() = default;
 
@@ -20,6 +22,8 @@ public:
     QVector<NPC> getNpc();
 
     QVector<Item> getItem();
+
+    QVector<Portal> getPortals();
 
     QPixmap getFont();
 

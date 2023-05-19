@@ -16,7 +16,7 @@ QVector<NPC> Level::getNPC() {
     file.open(QIODevice::ReadOnly | QIODevice::Text);
     QTextStream input(&file);
     QList<QString> tmp = input.readAll().split("%");
-    for(auto elem : tmp){
+    for (auto elem: tmp) {
         QTextStream in(&elem);
 
         QString image = in.readLine();
@@ -34,7 +34,7 @@ QVector<NPC> Level::getNPC() {
             QVector<QString> replic;
             QList<QString> replics = line.split("|");
             QString title = replics[0];
-            for(int i = 1; i < replics.size(); ++i){
+            for (int i = 1; i < replics.size(); ++i) {
                 replic << replics[i];
             }
             pairs.push_back(std::pair<Dialog, QString>{Dialog(replic), title});
@@ -75,4 +75,22 @@ QPixmap Level::getFont() {
 
 Level::Level(const QString &newPath) {
     path = newPath;
+}
+
+QVector<Portal> Level::getPortals() {
+    QVector<Portal> result;
+    QString tmp1 = QString(":/level/") + path + QString("/") + path + QString("Portal");
+    QFile file(tmp1);
+    file.open(QIODevice::ReadOnly | QIODevice::Text);
+    QTextStream in(&file);
+    while (!in.atEnd()) {
+        QString line = in.readLine();
+        int nextLevel = line.toInt();
+        in.flush();
+        line = in.readLine();
+        QList<QString> tmp = line.split(" ");
+        result.push_back(Portal(nextLevel, QRect(tmp[0].toInt(), tmp[1].toInt(),
+                                                 tmp[2].toInt(),tmp[3].toInt())));
+    }
+    return result;
 }

@@ -11,7 +11,7 @@ class Controller {
 private:
     Inventory inventory;
     Person person{QPointF(0, 0), 0, 1, 1};
-    Location curentLocation;
+    Location currentLocation;
 
     QVector<QRect> buttonsForDialog;
     bool dialogIsActive = false;

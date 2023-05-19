@@ -22,6 +22,7 @@ public:
     explicit AnotherWindow(QWidget *parent = nullptr);
     ~AnotherWindow() override;
     bool checkNpcPosition(NPC&);
+    bool checkPortalPosition(Portal&);
 
 protected:
 

@@ -12,7 +12,7 @@ void Controller::deleteItemToInventory(int id) {
 void Controller::loadNewLocation(int path) {
     Location location;
     location.readInformationFromJson(path);
-    curentLocation = location;
+    currentLocation = location;
     QString newPath = "level" + QString::number(path);
     Level level(newPath);
     person.setPosition(level.getPersonLocation());
@@ -20,7 +20,7 @@ void Controller::loadNewLocation(int path) {
 }
 
 Location Controller::getLocation() {
-    return curentLocation;
+    return currentLocation;
 }
 
 Person &Controller::getPerson() {
