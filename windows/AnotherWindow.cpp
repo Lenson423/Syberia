@@ -40,9 +40,6 @@ void AnotherWindow::paintEvent(QPaintEvent *event) {
             for (int i = 0; i < controller.getNpc()->getDialogs().size(); ++i) {
                 painter.drawText(200, 435 + i * 20, QString(controller.getNpc()->getDialogs()[i].second));
             }
-            for (int i = 0; i < controller.getNpc()->getDialogs().size(); ++i) {
-                painter.drawRect(controller.getButtonsForDialog()[i]);
-            }
         }
     }else if (mode == Inventory){
         screen.fill(QColorConstants::Black);
@@ -133,6 +130,7 @@ void AnotherWindow::mousePressEvent(QMouseEvent *event) {
             for(auto portal: controller.getLocation().getPortals()){
                 if(checkPortalPosition(portal)){
                     controller.loadNewLocation(portal.getNextLocationId());
+                    repaint();
                 }
             }
         }else if (mode == Dialog) {

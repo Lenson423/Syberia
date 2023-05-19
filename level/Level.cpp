@@ -16,6 +16,9 @@ QVector<NPC> Level::getNPC() {
     file.open(QIODevice::ReadOnly | QIODevice::Text);
     QTextStream input(&file);
     QList<QString> tmp = input.readAll().split("%");
+    if(tmp[0].size() == 0){
+        return npc;
+    }
     for (auto elem: tmp) {
         QTextStream in(&elem);
 
