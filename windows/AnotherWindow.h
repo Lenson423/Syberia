@@ -4,12 +4,9 @@
 #include <QMainWindow>
 #include <QGraphicsScene>
 #include <QGraphicsView>
-#include <QMediaPlayer>
 #include <QPainter>
 #include <QTimer>
 #include <QKeyEvent>
-#include <QAudioOutput>
-#include <QAudioFormat>
 
 #include "../workDirrectory/Controller.h"
 
@@ -48,7 +45,9 @@ private:
     int currentLevel = 1;
 
     Mode mode = Game;
+
     class Dialog currDialog;
+    QPixmap screen;
 private
     slots:
 

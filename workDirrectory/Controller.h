@@ -2,7 +2,7 @@
 #define UNTITLED2_CONTROLLER_H
 
 #include <QVector>
-#include <Qrect>
+#include <QRect>
 #include "../Inventory.h"
 #include "../Entity/Person.h"
 #include "../LocationsAndObjects/Location.h"
