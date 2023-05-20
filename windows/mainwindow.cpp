@@ -28,6 +28,7 @@ MainWindow::MainWindow(QWidget *parent)
     settingsButton = new QPushButton(view);
     settingsButton->setGeometry(50, 250, 255, 30);
     settingsButton->setStyleSheet("background-image: url(:/sources/settings_button.png); ");
+    connect(settingsButton, SIGNAL(clicked()), this, SLOT(settingsButtonClicked()));
 
     exitButton = new QPushButton(view);
     exitButton->setGeometry(50, 300, 255, 30);
@@ -63,4 +64,10 @@ void MainWindow::onLoadGameButtonClicked() {
     gameWindow->loadFile(filename);
     gameWindow->show();
     this->close();
+}
+
+void MainWindow::settingsButtonClicked() {
+    settingsWindow = new SettingsWindow();
+    settingsWindow->setFixedSize(400, 300);
+    settingsWindow->show();
 }

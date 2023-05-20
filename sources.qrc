@@ -30,5 +30,6 @@
         <file>level/level2/level2Portal</file>
         <file>sources/settings.png</file>
         <file>sources/save.png</file>
+        <file>sources/menu.png</file>
     </qresource>
 </RCC>
