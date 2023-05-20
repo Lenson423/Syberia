@@ -11,7 +11,6 @@ set(CMAKE_PREFIX_PATH "C:/Qt/6.2.4/mingw_64/lib/cmake")
 find_package(Qt6 COMPONENTS
         Core
         Gui
-        Multimedia
         Widgets
         REQUIRED)
 
@@ -28,7 +27,6 @@ find_package(Qt6 REQUIRED COMPONENTS Gui)
 target_link_libraries(untitled2
         Qt6::Core
         Qt6::Gui
-        Qt::Multimedia
         Qt6::Widgets
         )
 
