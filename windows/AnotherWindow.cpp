@@ -8,6 +8,8 @@ AnotherWindow::AnotherWindow(QWidget *parent) :
     ui->setupUi(this);
 
     controller.loadNewLocation(currentLevel);
+    settingsWindow = new SettingsWindow();
+    settingsWindow->setFixedSize(400, 300);
 
     connect(&timer, SIGNAL(timeout()), SLOT(updatePicture()));
     timer.start(20);
@@ -43,8 +45,12 @@ void AnotherWindow::paintEvent(QPaintEvent *event) {
         }
     } else if (mode == Inventory) {
         painter.drawPixmap(0, 0, screen);
-        painter.drawPixmap(0, 0, QPixmap(":/sources/settings.png"));
-        painter.drawPixmap(50, 0, QPixmap(":/sources/save.png"));
+        painter.setBrush(QBrush(QColorConstants::DarkGray));
+        painter.drawRect(0, 0, 150, 600);
+        painter.setBrush(QBrush());
+        painter.drawPixmap(0, 0, QPixmap(":/sources/menu.png"));
+        painter.drawPixmap(50, 0, QPixmap(":/sources/settings.png"));
+        painter.drawPixmap(100, 0, QPixmap(":/sources/save.png"));
     }
 }
 
@@ -52,7 +58,6 @@ void AnotherWindow::updatePicture() {
     if (mode == Game) {
         QPoint newPoint(controller.getPerson().getPosition().x() + controller.getPerson().getSpeed().first,
                         controller.getPerson().getPosition().y() + controller.getPerson().getSpeed().second);
-        controller.getPerson().setNewSpeed(0, 0);
         if (controller.getLocation().getBorder().containsPoint(newPoint, Qt::OddEvenFill)) {
             controller.getPerson().setPosition(newPoint);
             repaint();
@@ -75,18 +80,32 @@ void AnotherWindow::updatePicture() {
     }
 }
 
+void AnotherWindow::keyReleaseEvent(QKeyEvent *event) {
+    if (mode == Game) {
+        if (event->key() == Qt::Key_A || event->key() == Qt::Key_D) {
+            controller.getPerson().setNewSpeed(0, controller.getPerson().getSpeed().second);
+        }
+        if (event->key() == Qt::Key_W || event->key() == Qt::Key_S) {
+            controller.getPerson().setNewSpeed(controller.getPerson().getSpeed().first, 0);
+        }
+    }
+}
 
 void AnotherWindow::keyPressEvent(QKeyEvent *event) {
     if (mode == Game) {
         if (event->key() == Qt::Key_W) {
-            controller.getPerson().setNewSpeed(0, -5);
-        } else if (event->key() == Qt::Key_A) {
-            controller.getPerson().setNewSpeed(-5, 0);
-        } else if (event->key() == Qt::Key_S) {
-            controller.getPerson().setNewSpeed(0, 5);
-        } else if (event->key() == Qt::Key_D) {
-            controller.getPerson().setNewSpeed(5, 0);
-        } else if (event->key() == Qt::Key_Escape) {
+            controller.getPerson().setNewSpeed(controller.getPerson().getSpeed().first, -3);
+        }
+        if (event->key() == Qt::Key_A) {
+            controller.getPerson().setNewSpeed(-3, controller.getPerson().getSpeed().second);
+        }
+        if (event->key() == Qt::Key_S) {
+            controller.getPerson().setNewSpeed(controller.getPerson().getSpeed().first, 3);
+        }
+        if (event->key() == Qt::Key_D) {
+            controller.getPerson().setNewSpeed(3, controller.getPerson().getSpeed().second);
+        }
+        if (event->key() == Qt::Key_Escape) {
             screen = QWidget::grab();
             mode = Inventory;
             repaint();
@@ -151,9 +170,11 @@ void AnotherWindow::mousePressEvent(QMouseEvent *event) {
                 repaint();
             }
         } else if (mode == Inventory) {
-            if (QRect(0, 0, 50, 50).contains(controller.getPerson().getPosition().toPoint())) {
-                //ToDo
+            if (QRect(0, 0, 50, 50).contains(event->pos())) {
+                this->close();
             } else if (QRect(50, 0, 50, 50).contains(event->pos())) {
+                settingsWindow->show();
+            } else if (QRect(100, 0, 50, 50).contains(event->pos())) {
                 saveFile();
             }
         }
@@ -184,7 +205,7 @@ void AnotherWindow::saveFile() {
     }
 }
 
-void AnotherWindow::loadFile(const QString& path) {
+void AnotherWindow::loadFile(const QString &path) {
     QFile fileUrl(path);
     if (fileUrl.open(QIODevice::ReadWrite | QIODevice::Text)) {
         QTextStream in(&fileUrl);

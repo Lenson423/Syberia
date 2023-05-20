@@ -2,6 +2,7 @@
 #define UNTITLED2_ANOTHERWINDOW_H
 
 #include <QMainWindow>
+#include "SettingsWindow.h"
 #include <QGraphicsScene>
 #include <QGraphicsView>
 #include <QPainter>
@@ -37,6 +38,7 @@ protected:
 
 private:
     Ui::AnotherWindow *ui;
+    SettingsWindow *settingsWindow;
 
     QTimer timer;
 
@@ -59,6 +61,7 @@ private
 
     void updatePicture();
     void keyPressEvent(QKeyEvent *) override;
+    void keyReleaseEvent(QKeyEvent *) override;
     void loadCurrnetDialog();
 };
 

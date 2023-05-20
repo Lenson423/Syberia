@@ -8,6 +8,7 @@
 #include <QPushButton>
 
 #include "AnotherWindow.h"
+#include "SettingsWindow.h"
 #include "../workDirrectory/Controller.h"
 
 QT_BEGIN_NAMESPACE
@@ -21,7 +22,6 @@ public:
     MainWindow(QWidget *parent = nullptr);
 
     ~MainWindow();
-
 private:
     Ui::MainWindow *ui;
 
@@ -35,6 +35,7 @@ private:
     QPushButton* exitButton;
 
     AnotherWindow *gameWindow;
+    SettingsWindow *settingsWindow;
 protected:
 
     void paintEvent(QPaintEvent *event) override;
@@ -42,6 +43,7 @@ protected:
 private slots:
     void onNewGameButtonClicked();
     void onLoadGameButtonClicked();
+    void settingsButtonClicked();
 };
 
 #endif // MAINWINDOW_H

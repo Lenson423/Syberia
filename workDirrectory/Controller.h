@@ -10,7 +10,7 @@
 class Controller {
 private:
     Inventory inventory;
-    Person person{QPointF(0, 0), 0, 1, 1};
+    Person person{QPointF(0, 0), 0, 0, 0};
     Location currentLocation;
 
     QVector<QRect> buttonsForDialog;
