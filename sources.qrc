@@ -4,10 +4,6 @@
         <file>sources/character.png</file>
         <file>sources/enemy.png</file>
         <file>sources/menu_background.png</file>
-        <file>sources/exit_button.png</file>
-        <file>sources/load_game_button.png</file>
-        <file>sources/new_game_button.png</file>
-        <file>sources/settings_button.png</file>
         <file>sources/grass.png</file>
         <file>sources/road.png</file>
         <file>sources/grenada-grenada.mp3</file>
@@ -21,15 +17,33 @@
         <file>level/level1/level1PersLoc</file>
         <file>level/level1/level1Border</file>
         <file>level/level1/level1Font</file>
-        <file>level/level1/level1NPC</file>
         <file>level/level1/level1Portal</file>
         <file>level/level2/level2PersLoc</file>
         <file>level/level2/level2Border</file>
         <file>level/level2/level2Font</file>
-        <file>level/level2/level2NPC</file>
         <file>level/level2/level2Portal</file>
         <file>sources/settings.png</file>
         <file>sources/save.png</file>
         <file>sources/menu.png</file>
+        <file>sources/Russia_flag.png</file>
+        <file>sources/UK_USA_flag.png</file>
+        <file>sources/golden_border.png</file>
+        <file>sources/settings_fone.png</file>
+    </qresource>
+    <qresource lang="ru">
+        <file alias="sources/exit_button.png">sources/exit_button_ru.png</file>
+        <file alias="sources/load_game_button.png">sources/load_game_button_ru.png</file>
+        <file alias="sources/new_game_button.png">sources/new_game_button_ru.png</file>
+        <file alias="sources/settings_button.png">sources/settings_button_ru.png</file>
+        <file alias="level/level1/level1NPC">level/level1/level1NPC_ru</file>
+        <file alias="level/level2/level2NPC">level/level2/level2NPC_ru</file>
+    </qresource>
+    <qresource lang="en">
+        <file alias="sources/exit_button.png">sources/exit_button_en.png</file>
+        <file alias="sources/load_game_button.png">sources/load_game_button_en.png</file>
+        <file alias="sources/new_game_button.png">sources/new_game_button_en.png</file>
+        <file alias="sources/settings_button.png">sources/settings_button_en.png</file>
+        <file alias="level/level1/level1NPC">level/level1/level1NPC_en</file>
+        <file alias="level/level2/level2NPC">level/level2/level2NPC_en</file>
     </qresource>
 </RCC>

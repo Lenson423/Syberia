@@ -12,29 +12,24 @@ MainWindow::MainWindow(QWidget *parent)
     view->setScene(scene);
     scene->setSceneRect(0, 0, 900, 600);
     view->setGeometry(0, 0, 900, 600);
-    QPixmap map(":/sources/menu_background.png");
-    scene->setBackgroundBrush(QBrush(map));
 
     newGameButton = new QPushButton(view);
     newGameButton->setGeometry(50, 150, 255, 30);
-    newGameButton->setStyleSheet("background-image: url(:/sources/new_game_button.png); ");
     connect(newGameButton, SIGNAL(clicked()), this, SLOT(onNewGameButtonClicked()));
 
     loadGameButton = new QPushButton(view);
     loadGameButton->setGeometry(50, 200, 255, 30);
-    loadGameButton->setStyleSheet("background-image: url(:/sources/load_game_button.png); ");
     connect(loadGameButton, SIGNAL(clicked()), this, SLOT(onLoadGameButtonClicked()));
 
     settingsButton = new QPushButton(view);
     settingsButton->setGeometry(50, 250, 255, 30);
-    settingsButton->setStyleSheet("background-image: url(:/sources/settings_button.png); ");
     connect(settingsButton, SIGNAL(clicked()), this, SLOT(settingsButtonClicked()));
 
     exitButton = new QPushButton(view);
     exitButton->setGeometry(50, 300, 255, 30);
-    exitButton->setStyleSheet("background-image: url(:/sources/exit_button.png); ");
     connect(exitButton, SIGNAL(clicked()), this, SLOT(close()));
     view->show();
+    repaint();
 }
 
 MainWindow::~MainWindow() {
@@ -42,7 +37,13 @@ MainWindow::~MainWindow() {
 }
 
 void MainWindow::paintEvent(QPaintEvent *event) {
+    QPixmap map(":/sources/menu_background.png");
+    scene->setBackgroundBrush(QBrush(map));
 
+    newGameButton->setStyleSheet("background-image: url(:/sources/new_game_button.png); ");
+    loadGameButton->setStyleSheet("background-image: url(:/sources/load_game_button.png); ");
+    settingsButton->setStyleSheet("background-image: url(:/sources/settings_button.png); ");
+    exitButton->setStyleSheet("background-image: url(:/sources/exit_button.png); ");
 }
 
 void MainWindow::onNewGameButtonClicked() {
