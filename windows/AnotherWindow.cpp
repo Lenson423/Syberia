@@ -56,6 +56,12 @@ void AnotherWindow::paintEvent(QPaintEvent *event) {
 
 void AnotherWindow::updatePicture() {
     if (mode == Game) {
+        if(isNeedToReload){
+            QPointF tmp = controller.getPerson().getPosition();
+            controller.loadNewLocation(currentLevel);
+            controller.getPerson().setPosition(tmp);
+            isNeedToReload = false;
+        }
         QPoint newPoint(controller.getPerson().getPosition().x() + controller.getPerson().getSpeed().first,
                         controller.getPerson().getPosition().y() + controller.getPerson().getSpeed().second);
         if (controller.getLocation().getBorder().containsPoint(newPoint, Qt::OddEvenFill)) {
@@ -174,6 +180,7 @@ void AnotherWindow::mousePressEvent(QMouseEvent *event) {
                 this->close();
             } else if (QRect(50, 0, 50, 50).contains(event->pos())) {
                 settingsWindow->show();
+                isNeedToReload = true;
             } else if (QRect(100, 0, 50, 50).contains(event->pos())) {
                 saveFile();
             }
