@@ -23,7 +23,12 @@ void AnotherWindow::paintEvent(QPaintEvent *event) {
     QPainter painter(this);
     if (mode == Game) {
         painter.drawPixmap(0, 0, controller.getLocation().getFont());
-        painter.drawPixmap(controller.getPerson().getPosition(), QPixmap(":/sources/character.png"));
+        if(!inMoovements){
+            painter.drawPixmap(controller.getPerson().getPosition(), QPixmap(":/sources/character.png"));
+        }else{
+            QString tmp = ":/sources/character" + QString::number(QTime::currentTime().second() % 2) + ".png";
+            painter.drawPixmap(controller.getPerson().getPosition(), QPixmap(tmp));
+        }
         for (auto npc: controller.getLocation().getNpc()) {
             painter.drawPixmap(npc.getPosition(), npc.getSprite());
         }
@@ -45,8 +50,10 @@ void AnotherWindow::paintEvent(QPaintEvent *event) {
         }
     } else if (mode == Inventory) {
         painter.drawPixmap(0, 0, screen);
+        painter.setOpacity(0.75);
         painter.setBrush(QBrush(QColorConstants::DarkGray));
         painter.drawRect(0, 0, 150, 600);
+        painter.setOpacity(1);
         painter.setBrush(QBrush());
         painter.drawPixmap(0, 0, QPixmap(":/sources/menu.png"));
         painter.drawPixmap(50, 0, QPixmap(":/sources/settings.png"));
@@ -55,8 +62,9 @@ void AnotherWindow::paintEvent(QPaintEvent *event) {
 }
 
 void AnotherWindow::updatePicture() {
+    inMoovements = false;
     if (mode == Game) {
-        if(isNeedToReload){
+        if (isNeedToReload) {
             QPointF tmp = controller.getPerson().getPosition();
             controller.loadNewLocation(currentLevel);
             controller.getPerson().setPosition(tmp);
@@ -65,7 +73,10 @@ void AnotherWindow::updatePicture() {
         QPoint newPoint(controller.getPerson().getPosition().x() + controller.getPerson().getSpeed().first,
                         controller.getPerson().getPosition().y() + controller.getPerson().getSpeed().second);
         if (controller.getLocation().getBorder().containsPoint(newPoint, Qt::OddEvenFill)) {
-            controller.getPerson().setPosition(newPoint);
+            if (newPoint != controller.getPerson().getPosition()) {
+                inMoovements = true;
+                controller.getPerson().setPosition(newPoint);
+            }
             repaint();
         }
 
