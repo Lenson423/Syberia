@@ -52,6 +52,7 @@ private:
 
     int currentLevel = 1;
     bool isNeedToReload = false;
+    bool inMoovements = false;
     Mode mode = Game;
 
     class Dialog currDialog;
