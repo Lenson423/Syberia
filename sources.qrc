@@ -20,6 +20,10 @@
         <file>level/level1/level1Border</file>
         <file>level/level1/level1Font</file>
         <file>level/level1/level1Portal</file>
+        <file>level/level3/level3PersLoc</file>
+        <file>level/level3/level3Border</file>
+        <file>level/level3/level3Font</file>
+        <file>level/level3/level3Portal</file>
         <file>level/level2/level2PersLoc</file>
         <file>level/level2/level2Border</file>
         <file>level/level2/level2Font</file>
@@ -31,6 +35,7 @@
         <file>sources/UK_USA_flag.png</file>
         <file>sources/golden_border.png</file>
         <file>sources/settings_fone.png</file>
+        <file>sources/old_woman.png</file>
     </qresource>
     <qresource lang="ru">
         <file alias="sources/exit_button.png">sources/exit_button_ru.png</file>
@@ -39,6 +44,7 @@
         <file alias="sources/settings_button.png">sources/settings_button_ru.png</file>
         <file alias="level/level1/level1NPC">level/level1/level1NPC_ru</file>
         <file alias="level/level2/level2NPC">level/level2/level2NPC_ru</file>
+        <file alias="level/level3/level3NPC">level/level3/level3NPC_ru</file>
     </qresource>
     <qresource lang="en">
         <file alias="sources/exit_button.png">sources/exit_button_en.png</file>
@@ -47,5 +53,6 @@
         <file alias="sources/settings_button.png">sources/settings_button_en.png</file>
         <file alias="level/level1/level1NPC">level/level1/level1NPC_en</file>
         <file alias="level/level2/level2NPC">level/level2/level2NPC_en</file>
+        <file alias="level/level3/level3NPC">level/level3/level3NPC_en</file>
     </qresource>
 </RCC>

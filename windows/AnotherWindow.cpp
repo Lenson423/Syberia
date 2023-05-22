@@ -11,6 +11,8 @@ AnotherWindow::AnotherWindow(QWidget *parent) :
     settingsWindow = new SettingsWindow();
     settingsWindow->setFixedSize(400, 300);
 
+    //QQmlApplicationEngine engine("main.qml");
+
     connect(&timer, SIGNAL(timeout()), SLOT(updatePicture()));
     timer.start(20);
 }
@@ -125,6 +127,7 @@ void AnotherWindow::keyPressEvent(QKeyEvent *event) {
         if (event->key() == Qt::Key_Escape) {
             screen = QWidget::grab();
             mode = Inventory;
+            ui->centralwidget->setCursor(QCursor());
             repaint();
         }
     } else if (mode == Mode::Dialog) {
@@ -151,6 +154,7 @@ bool AnotherWindow::checkNpcPosition(NPC &npc) {
 }
 
 void AnotherWindow::mousePressEvent(QMouseEvent *event) {
+    qDebug() << event->pos();
     if (event->button() == 1) {
         if (mode == Game) {
             for (auto npc: controller.getLocation().getNpc()) {

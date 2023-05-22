@@ -12,6 +12,7 @@ find_package(Qt6 COMPONENTS
         Core
         Gui
         Widgets
+        Qml
         REQUIRED)
 
 add_executable(untitled2 sources.qrc main.cpp windows/mainwindow.h windows/mainwindow.cpp Entity/Entity.cpp Entity/Entity.h
@@ -20,7 +21,8 @@ add_executable(untitled2 sources.qrc main.cpp windows/mainwindow.h windows/mainw
         "LocationsAndObjects/Block.cpp" "LocationsAndObjects/Block.h" "LocationsAndObjects/Object.cpp"
         "LocationsAndObjects/Object.h" Dialog.cpp Dialog.h "LocationsAndObjects/Item.cpp" "LocationsAndObjects/Item.h"
         Inventory.cpp Inventory.h  windows/AnotherWindow.cpp windows/AnotherWindow.h level/Level.cpp level/Level.h
-        LocationsAndObjects/Portal.cpp LocationsAndObjects/Portal.h windows/SettingsWindow.cpp windows/SettingsWindow.h)
+        LocationsAndObjects/Portal.cpp LocationsAndObjects/Portal.h windows/SettingsWindow.cpp windows/SettingsWindow.h
+        music.qml)
 
 find_package(Qt6 REQUIRED COMPONENTS Gui)
 
@@ -28,6 +30,7 @@ target_link_libraries(untitled2
         Qt6::Core
         Qt6::Gui
         Qt6::Widgets
+        Qt6::Qml
         )
 
 set(RESOURCE_FILES
