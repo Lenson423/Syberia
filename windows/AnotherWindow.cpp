@@ -13,6 +13,11 @@ AnotherWindow::AnotherWindow(QWidget *parent) :
 
     connect(&timer, SIGNAL(timeout()), SLOT(updatePicture()));
     timer.start(20);
+
+    tempDir.setAutoRemove(false);
+    connect(&musicTimer, SIGNAL(timeout()), SLOT(startMusic()));
+    musicTimer.start(213000);
+    QTimer::singleShot(1, this, SLOT(startMusic()));
 }
 
 AnotherWindow::~AnotherWindow() {
@@ -125,6 +130,7 @@ void AnotherWindow::keyPressEvent(QKeyEvent *event) {
         if (event->key() == Qt::Key_Escape) {
             screen = QWidget::grab();
             mode = Inventory;
+            ui->centralwidget->setCursor(QCursor());
             repaint();
         }
     } else if (mode == Mode::Dialog) {
@@ -151,6 +157,7 @@ bool AnotherWindow::checkNpcPosition(NPC &npc) {
 }
 
 void AnotherWindow::mousePressEvent(QMouseEvent *event) {
+    qDebug() << event->pos();
     if (event->button() == 1) {
         if (mode == Game) {
             for (auto npc: controller.getLocation().getNpc()) {
@@ -232,5 +239,20 @@ void AnotherWindow::loadFile(const QString &path) {
         QList<QString> tmp = in.readLine().split(" ");
         controller.getPerson().setPosition(QPointF(tmp[0].toDouble(), tmp[1].toDouble()));
     }
+}
+
+void AnotherWindow::startMusic() {
+    Music music;
+    QString tempFile = tempDir.path() + "/tmp.wav";
+    if (tempDir.isValid()) {
+        if(QFile::copy(":/sources/grenada-grenada.wav", tempFile)){
+            music.play(QFileInfo(tempFile));
+        }
+    }
+}
+
+void AnotherWindow::closeEvent(QCloseEvent *event) {
+    tempDir.remove();
+    QMainWindow::closeEvent(event);
 }
 

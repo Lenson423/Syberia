@@ -10,8 +10,9 @@
 #include <QKeyEvent>
 #include <QTime>
 #include <QDir>
-#include <QIODevice>
+#include <QTemporaryDir>
 
+#include "../Music.h"
 #include "../workDirrectory/Controller.h"
 
 namespace Ui {
@@ -41,6 +42,7 @@ private:
     SettingsWindow *settingsWindow;
 
     QTimer timer;
+    QTimer musicTimer;
 
     Controller controller;
 
@@ -57,12 +59,15 @@ private:
 
     class Dialog currDialog;
     QPixmap screen;
+    QTemporaryDir tempDir;
 private
     slots:
 
     void updatePicture();
+    void startMusic();
     void keyPressEvent(QKeyEvent *) override;
     void keyReleaseEvent(QKeyEvent *) override;
+    void closeEvent(QCloseEvent *event) override;
     void loadCurrnetDialog();
 };
 
