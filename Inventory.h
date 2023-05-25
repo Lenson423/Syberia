@@ -3,16 +3,16 @@
 
 #include "LocationsAndObjects/Item.h"
 
-#include <QVector>
+#include <QHash>
 
 class Inventory {
 private:
-    QVector<Item> items;
+    QHash<int, Item> items;
 public:
     Inventory() = default;
 
     void addItem(const Item &);
-
+    bool findItemWithId(int);
     void deleteItemWithId(int);
 
 };
