@@ -69,6 +69,7 @@ private
     void keyReleaseEvent(QKeyEvent *) override;
     void closeEvent(QCloseEvent *event) override;
     void loadCurrnetDialog();
+    void startMusicEffect(const QString&);
 };
 
 #endif //UNTITLED2_ANOTHERWINDOW_H

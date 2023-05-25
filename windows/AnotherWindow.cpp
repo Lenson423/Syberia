@@ -11,13 +11,13 @@ AnotherWindow::AnotherWindow(QWidget *parent) :
     settingsWindow = new SettingsWindow();
     settingsWindow->setFixedSize(400, 300);
 
+    QTimer::singleShot(1, this, SLOT(startMusic()));
     connect(&timer, SIGNAL(timeout()), SLOT(updatePicture()));
     timer.start(20);
 
     tempDir.setAutoRemove(false);
     connect(&musicTimer, SIGNAL(timeout()), SLOT(startMusic()));
-    musicTimer.start(213000);
-    QTimer::singleShot(1, this, SLOT(startMusic()));
+    musicTimer.start(49000);
 }
 
 AnotherWindow::~AnotherWindow() {
@@ -28,9 +28,9 @@ void AnotherWindow::paintEvent(QPaintEvent *event) {
     QPainter painter(this);
     if (mode == Game) {
         painter.drawPixmap(0, 0, controller.getLocation().getFont());
-        if(!inMoovements){
+        if (!inMoovements) {
             painter.drawPixmap(controller.getPerson().getPosition(), QPixmap(":/sources/character.png"));
-        }else{
+        } else {
             QString tmp = ":/sources/character" + QString::number(QTime::currentTime().second() % 2) + ".png";
             painter.drawPixmap(controller.getPerson().getPosition(), QPixmap(tmp));
         }
@@ -135,6 +135,7 @@ void AnotherWindow::keyPressEvent(QKeyEvent *event) {
         }
     } else if (mode == Mode::Dialog) {
         if (event->key() == Qt::Key_Space) {
+            startMusicEffect(":/sources/dialog_click_music.wav");
             repaint();
         } else if (event->key() == Qt::Key_Escape && !controller.dialIsActive()) {
             mode = Game;
@@ -169,6 +170,7 @@ void AnotherWindow::mousePressEvent(QMouseEvent *event) {
                     }
                     ui->centralwidget->setCursor(QCursor());
                     mode = Dialog;
+                    startMusicEffect(":/sources/on_npc_clicked_music.wav");
                     repaint();
                     break;
                 }
@@ -177,6 +179,7 @@ void AnotherWindow::mousePressEvent(QMouseEvent *event) {
                 if (checkPortalPosition(portal)) {
                     controller.loadNewLocation(portal.getNextLocationId());
                     currentLevel = portal.getNextLocationId();
+                    startMusicEffect(":/sources/new_location.wav");
                     repaint();
                 }
             }
@@ -188,6 +191,7 @@ void AnotherWindow::mousePressEvent(QMouseEvent *event) {
                         controller.setDialogActivity(true);
                         controller.setCurrentDialogNum(i);
                         loadCurrnetDialog();
+                        startMusicEffect(":/sources/dialog_click_music.wav");
                         break;
                     }
                 }
@@ -245,14 +249,22 @@ void AnotherWindow::startMusic() {
     Music music;
     QString tempFile = tempDir.path() + "/tmp.wav";
     if (tempDir.isValid()) {
-        if(QFile::copy(":/sources/grenada-grenada.wav", tempFile)){
-            music.play(QFileInfo(tempFile));
-        }
+        QFile::copy(":/sources/music_menu.wav", tempFile);
+        music.play(QFileInfo(tempFile));
     }
 }
 
 void AnotherWindow::closeEvent(QCloseEvent *event) {
     tempDir.remove();
     QMainWindow::closeEvent(event);
+}
+
+void AnotherWindow::startMusicEffect(const QString &link) {
+    Music music;
+    QString tempFile = tempDir.path() + "/" + link.split("/").back();
+    if (tempDir.isValid()) {
+        QFile::copy(link, tempFile);
+        music.play(QFileInfo(tempFile));
+    }
 }
 
