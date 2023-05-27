@@ -21,7 +21,7 @@ public:
 
     QVector<NPC> getNpc();
 
-    QVector<Item> getItem();
+    QHash<int, Item> getItem();
 
     QVector<Portal> getPortals();
 

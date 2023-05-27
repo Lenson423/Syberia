@@ -3,6 +3,7 @@
 
 void Controller::addItemToInventory(const Item &item) {
     inventory.addItem(item);
+    itemsInInventory.insert(QRect(25, 110 * inventory.getItems().size(), 100, 100), item);
 }
 
 void Controller::deleteItemToInventory(int id) {
@@ -16,6 +17,9 @@ void Controller::loadNewLocation(int path) {
     QString newPath = "level" + QString::number(path);
     Level level(newPath);
     person.setPosition(level.getPersonLocation());
+    for (auto elem: currentLocation.getItem()) {
+        itemsPosition.insert(QRect(elem.getPoint(), QSize(25, 25)), elem.getId());
+    }
 
 }
 
@@ -65,4 +69,12 @@ void Controller::setCurrentNpc(const NPC &npc) {
 
 NPC *Controller::getNpc() {
     return &currentNPC;
+}
+
+QHash<QRect, int> Controller::getItemsPosition() {
+    return itemsPosition;
+}
+
+QHash<QRect, Item> Controller::getItemsInInventory() {
+    return itemsInInventory;
 }

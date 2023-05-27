@@ -22,8 +22,12 @@ void Location::readInformationFromJson(int level) {
     portals = newLevel.getPortals();
 }
 
-QVector<Item> Location::getItem() {
-    return itemList;
+QHash<int, Item> Location::getItem() {
+    QHash<int, Item> result;
+    for(const auto& elem : itemList){
+        result.insert(elem.getId(), elem);
+    }
+    return result;
 }
 
 QPixmap Location::getFont() {

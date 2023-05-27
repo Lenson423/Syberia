@@ -11,3 +11,7 @@ void Inventory::deleteItemWithId(int idToFind) {
 bool Inventory::findItemWithId(int idToFind) {
     return items.contains(idToFind);
 }
+
+QHash<int, Item>  Inventory::getItems() {
+    return items;
+}

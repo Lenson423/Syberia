@@ -49,7 +49,8 @@ private:
     enum Mode{
         Game = 0,
         Inventory,
-        Dialog
+        Dialog,
+        ViewingOfImage
     };
 
     int currentLevel = 1;
@@ -60,6 +61,8 @@ private:
     class Dialog currDialog;
     QPixmap screen;
     QTemporaryDir tempDir;
+    static constexpr int LevelCount = 3;
+    Item* tmpItem;
 private
     slots:
 
