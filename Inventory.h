@@ -11,6 +11,7 @@ private:
 public:
     Inventory() = default;
 
+    QHash<int, Item>  getItems();
     void addItem(const Item &);
     bool findItemWithId(int);
     void deleteItemWithId(int);

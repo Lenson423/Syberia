@@ -14,9 +14,11 @@ private:
     Location currentLocation;
 
     QVector<QRect> buttonsForDialog;
+    QHash<QRect, int> itemsPosition;
     bool dialogIsActive = false;
     int currentDialog = 0;
     NPC currentNPC;
+    QHash<QRect, Item> itemsInInventory;
 
 public:
     void setCurrentNpc(const NPC&);
@@ -35,7 +37,8 @@ public:
     Inventory getInventory();
     bool dialIsActive();
     int getDialogNum();
-
+    QHash<QRect, int> getItemsPosition();
+    QHash<QRect, Item> getItemsInInventory();
 public:
 
 };

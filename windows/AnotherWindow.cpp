@@ -28,14 +28,20 @@ void AnotherWindow::paintEvent(QPaintEvent *event) {
     QPainter painter(this);
     if (mode == Game) {
         painter.drawPixmap(0, 0, controller.getLocation().getFont());
+        for (auto npc: controller.getLocation().getNpc()) {
+            painter.drawPixmap(npc.getPosition(), npc.getSprite());
+        }
+        for (auto item: controller.getLocation().getItem()) {
+            if (!controller.getInventory().findItemWithId(item.getId())) {
+                painter.drawPixmap(item.getPoint().x(), item.getPoint().y(), 25, 25,
+                                   item.getImage());
+            }
+        }
         if (!inMoovements) {
             painter.drawPixmap(controller.getPerson().getPosition(), QPixmap(":/sources/character.png"));
         } else {
             QString tmp = ":/sources/character" + QString::number(QTime::currentTime().second() % 2) + ".png";
             painter.drawPixmap(controller.getPerson().getPosition(), QPixmap(tmp));
-        }
-        for (auto npc: controller.getLocation().getNpc()) {
-            painter.drawPixmap(npc.getPosition(), npc.getSprite());
         }
     } else if (mode == Dialog) {
         painter.drawPixmap(0, 0, QPixmap(":/sources/dialog_font.png"));
@@ -63,6 +69,17 @@ void AnotherWindow::paintEvent(QPaintEvent *event) {
         painter.drawPixmap(0, 0, QPixmap(":/sources/menu.png"));
         painter.drawPixmap(50, 0, QPixmap(":/sources/settings.png"));
         painter.drawPixmap(100, 0, QPixmap(":/sources/save.png"));
+
+        int i = 1;
+        for (Item item: controller.getInventory().getItems()) {
+            painter.drawPixmap(25, 110 * i, QPixmap(":/sources/item_border.png"));
+            painter.drawPixmap(35, 110 * i + 10, 80, 80, item.getImage());
+            ++i;
+        }
+    } else if (mode == ViewingOfImage) {
+        painter.drawPixmap(0, 0, QPixmap(":/sources/viewing_image_background.png"));
+        painter.drawPixmap((845 - tmpItem->getImage().width()) / 2, (575 - tmpItem->getImage().height()) / 2,
+                           tmpItem->getImage());
     }
 }
 
@@ -104,10 +121,10 @@ void AnotherWindow::updatePicture() {
 
 void AnotherWindow::keyReleaseEvent(QKeyEvent *event) {
     if (mode == Game) {
-        if (event->key() == Qt::Key_A || event->key() == Qt::Key_D) {
+        if (event->nativeVirtualKey() == Qt::Key_A || event->nativeVirtualKey() == Qt::Key_D) {
             controller.getPerson().setNewSpeed(0, controller.getPerson().getSpeed().second);
         }
-        if (event->key() == Qt::Key_W || event->key() == Qt::Key_S) {
+        if (event->nativeVirtualKey() == Qt::Key_W || event->nativeVirtualKey() == Qt::Key_S) {
             controller.getPerson().setNewSpeed(controller.getPerson().getSpeed().first, 0);
         }
     }
@@ -115,16 +132,16 @@ void AnotherWindow::keyReleaseEvent(QKeyEvent *event) {
 
 void AnotherWindow::keyPressEvent(QKeyEvent *event) {
     if (mode == Game) {
-        if (event->key() == Qt::Key_W) {
+        if (event->nativeVirtualKey() == Qt::Key_W) {
             controller.getPerson().setNewSpeed(controller.getPerson().getSpeed().first, -3);
         }
-        if (event->key() == Qt::Key_A) {
+        if (event->nativeVirtualKey() == Qt::Key_A) {
             controller.getPerson().setNewSpeed(-3, controller.getPerson().getSpeed().second);
         }
-        if (event->key() == Qt::Key_S) {
+        if (event->nativeVirtualKey() == Qt::Key_S) {
             controller.getPerson().setNewSpeed(controller.getPerson().getSpeed().first, 3);
         }
-        if (event->key() == Qt::Key_D) {
+        if (event->nativeVirtualKey() == Qt::Key_D) {
             controller.getPerson().setNewSpeed(3, controller.getPerson().getSpeed().second);
         }
         if (event->key() == Qt::Key_Escape) {
@@ -144,6 +161,11 @@ void AnotherWindow::keyPressEvent(QKeyEvent *event) {
     } else if (mode == Mode::Inventory) {
         if (event->key() == Qt::Key_Escape) {
             mode = Game;
+            repaint();
+        }
+    } else if (mode == ViewingOfImage) {
+        if (event->key() == Qt::Key_Escape) {
+            mode = Inventory;
             repaint();
         }
     }
@@ -183,6 +205,13 @@ void AnotherWindow::mousePressEvent(QMouseEvent *event) {
                     repaint();
                 }
             }
+
+            auto tmp = controller.getItemsPosition();
+            for (auto it = tmp.begin(); it != tmp.end(); ++it) {
+                if (it.key().contains(event->pos())) {
+                    controller.addItemToInventory(controller.getLocation().getItem()[it.value()]);
+                }
+            }
         } else if (mode == Dialog) {
             if (!controller.dialIsActive()) {
                 for (int i = 0; i < controller.getButtonsForDialog().size(); ++i) {
@@ -206,6 +235,15 @@ void AnotherWindow::mousePressEvent(QMouseEvent *event) {
             } else if (QRect(100, 0, 50, 50).contains(event->pos())) {
                 saveFile();
             }
+            auto tmp = controller.getItemsInInventory();
+            for (auto it = tmp.begin(); it != tmp.end(); ++it) {
+                if (it.key().contains(event->pos())) {
+                    mode = ViewingOfImage;
+                    tmpItem = &it.value();
+                    repaint();
+                    qDebug() << mode;
+                }
+            }
         }
     }
 }
@@ -224,13 +262,16 @@ bool AnotherWindow::checkPortalPosition(Portal &portal) {
 
 void AnotherWindow::saveFile() {
     QString path = qApp->applicationDirPath(); //location of the file, assuming in application dir
-    QString name = "./syberia" + QTime::currentTime().toString("hh.mm.ss") + ".txt";
+    QString name = "./syberia" + QTime::currentTime().toString("hh.mm.ss") + ".syb";
     path.append(name);
     QFile fileUrl(path);
     if (fileUrl.open(QIODevice::ReadWrite | QIODevice::Text)) {
         QTextStream out(&fileUrl);
         out << currentLevel << Qt::endl;
-        out << controller.getPerson().getPosition().x() << " " << controller.getPerson().getPosition().y();
+        out << controller.getPerson().getPosition().x() << " " << controller.getPerson().getPosition().y() << Qt::endl;
+        for (const auto &elem: controller.getInventory().getItems()) {
+            out << elem.getId() << " ";
+        }
     }
 }
 
@@ -239,8 +280,16 @@ void AnotherWindow::loadFile(const QString &path) {
     if (fileUrl.open(QIODevice::ReadWrite | QIODevice::Text)) {
         QTextStream in(&fileUrl);
         currentLevel = in.readLine().toInt();
-        controller.loadNewLocation(currentLevel);
         QList<QString> tmp = in.readLine().split(" ");
+        for (const auto &elem: in.readLine().split(" ")) {
+            for (int i = 1; i <= LevelCount; ++i) {
+                controller.loadNewLocation(i);
+                if (controller.getLocation().getItem().contains(elem.toInt())) {
+                    controller.addItemToInventory(controller.getLocation().getItem()[elem.toInt()]);
+                }
+            }
+        }
+        controller.loadNewLocation(currentLevel);
         controller.getPerson().setPosition(QPointF(tmp[0].toDouble(), tmp[1].toDouble()));
     }
 }

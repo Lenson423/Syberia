@@ -11,3 +11,7 @@ void Object::setImage(const QString& filePath) {
 int Object::getId() const {
     return id;
 }
+
+QPixmap Object::getImage() {
+    return image;
+}

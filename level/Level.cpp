@@ -12,11 +12,11 @@ QPointF Level::getPersonLocation() {
 QVector<NPC> Level::getNPC() {
     QVector<NPC> npc;
     QString tmp1 = QString(":/level/") + path + QString("/") + path + QString("NPC");
-    QFile file(      tmp1);
+    QFile file(tmp1);
     file.open(QIODevice::ReadOnly | QIODevice::Text);
     QTextStream input(&file);
     QList<QString> tmp = input.readAll().split("%");
-    if(tmp[0].size() == 0){
+    if (tmp[0].size() == 0) {
         return npc;
     }
     for (auto elem: tmp) {
@@ -65,7 +65,20 @@ QPolygon Level::getBorder() {
 }
 
 QVector<Item> Level::getItems() {
-    return QVector<Item>{Item(0, QPixmap(":/sources/fance.png"), Item::ForQuests)};
+    QString tmp1 = QString(":/level/") + path + QString("/") + path + QString("Items");
+    QFile file(tmp1);
+    file.open(QIODevice::ReadOnly | QIODevice::Text);
+    QTextStream in(&file);
+    QVector<Item> items;
+    while (!in.atEnd()) {
+        QString line = in.readLine();
+        QList<QString> tmp = line.split(" ");
+        items.push_back(
+                Item(tmp[0].toInt(), QString(tmp[1]), static_cast<Item::ItemClass>(tmp[2].toInt()), tmp[3].toInt(),
+                     tmp[4].toInt()));
+        in.flush();
+    }
+    return items;
 }
 
 QPixmap Level::getFont() {
@@ -93,7 +106,7 @@ QVector<Portal> Level::getPortals() {
         line = in.readLine();
         QList<QString> tmp = line.split(" ");
         result.push_back(Portal(nextLevel, QRect(tmp[0].toInt(), tmp[1].toInt(),
-                                                 tmp[2].toInt(),tmp[3].toInt())));
+                                                 tmp[2].toInt(), tmp[3].toInt())));
     }
     return result;
 }

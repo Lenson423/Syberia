@@ -7,14 +7,19 @@ class Item : public Object {
 public:
     enum ItemClass {
         Newspaper = 1,
-        ForQuests
+        ForQuests = 2
     };
 
-    void setClass(ItemClass);
-    ItemClass getClass();
-    Item(int, const QPixmap&, ItemClass);
+    [[maybe_unused]] void setClass(ItemClass);
+    QPoint getPoint();
+
+    [[maybe_unused]] ItemClass getClass();
+    Item() = default;
+    ~Item() = default;
+    Item(int, const QPixmap&, ItemClass, int, int);
 private:
     ItemClass iClass;
+    QPoint point;
 };
 
 

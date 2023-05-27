@@ -23,6 +23,7 @@
         <file>level/level1/level1Border</file>
         <file>level/level1/level1Font</file>
         <file>level/level1/level1Portal</file>
+        <file>level/level1/level1Items</file>
         <file>level/level3/level3PersLoc</file>
         <file>level/level3/level3Border</file>
         <file>level/level3/level3Font</file>
@@ -39,6 +40,9 @@
         <file>sources/golden_border.png</file>
         <file>sources/settings_fone.png</file>
         <file>sources/old_woman.png</file>
+        <file>sources/item_border.png</file>
+        <file>sources/item1.png</file>
+        <file>sources/viewing_image_background.png</file>
     </qresource>
     <qresource lang="ru">
         <file alias="sources/exit_button.png">sources/exit_button_ru.png</file>

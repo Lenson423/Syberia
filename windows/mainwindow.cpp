@@ -60,7 +60,7 @@ void MainWindow::onLoadGameButtonClicked() {
             this,
             tr("Sensor data"),
             "C//",
-            "All Files (*.*)"
+            "All Files (*.syb)"
     );
     gameWindow->loadFile(filename);
     gameWindow->show();
