@@ -11,13 +11,13 @@ class Location {
 private:
     QVector<NPC> npcList;
     QVector<Item> itemList;
-    QPolygon border;
+    QPolygonF border;
     QPixmap font;
     QVector<Portal> portals;
 public:
     Location() = default;
 
-    QPolygon getBorder();
+    QPolygonF getBorder();
 
     QVector<NPC> getNpc();
 

@@ -1,7 +1,7 @@
 #ifndef UNTITLED2_INVENTORY_H
 #define UNTITLED2_INVENTORY_H
 
-#include "LocationsAndObjects/Item.h"
+#include "../LocationsAndObjects/Item.h"
 
 #include <QHash>
 

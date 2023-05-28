@@ -27,7 +27,7 @@ public:
 
     QVector<Portal> getPortals();
 
-    QPolygon getBorder();
+    QPolygonF getBorder();
 
     QVector<Item> getItems();
 

@@ -3,7 +3,7 @@
 
 #include <QPixmap>
 #include "Entity.h"
-#include "../Dialog.h"
+#include "../workDirrectory/Dialog.h"
 
 class NPC : public Entity {
 private:

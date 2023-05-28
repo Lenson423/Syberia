@@ -4,7 +4,7 @@
 
 #include "Location.h"
 
-QPolygon Location::getBorder() {
+QPolygonF Location::getBorder() {
     return border;
 }
 

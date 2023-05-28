@@ -1,5 +1,4 @@
 #include "Controller.h"
-#include "../level/Level.h"
 
 void Controller::addItemToInventory(const Item &item) {
     inventory.addItem(item);
@@ -51,7 +50,7 @@ void Controller::setDialogActivity(bool isActive) {
     dialogIsActive = isActive;
 }
 
-bool Controller::dialIsActive() {
+bool Controller::dialIsActive() const {
     return dialogIsActive;
 }
 
@@ -59,7 +58,7 @@ void Controller::setCurrentDialogNum(int num) {
     currentDialog = num;
 }
 
-int Controller::getDialogNum() {
+int Controller::getDialogNum() const {
     return currentDialog;
 }
 
