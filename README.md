@@ -13,8 +13,8 @@ what the character can do: go to another location, take an
 item, talk to the character, etc.</h6>
 
 <p>
-<img link="sources/for_readme1.png" width=49% alt="picture1">
-<img link="sources/for_readme2.png" width = 49% alt="picture2">
+<img src="sources/for_readme1.png" width=49% alt="picture1">
+<img src="sources/for_readme2.png" width = 49% alt="picture2">
 </p>
 
 <h2 align="center"> Instalation</h2>
