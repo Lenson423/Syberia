@@ -1,21 +1,22 @@
 cmake_minimum_required(VERSION 3.25)
-project(untitled2)
+project(untitled)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
-set(CMAKE_PREFIX_PATH "C:/Qt/6.2.4/mingw_64/lib/cmake")
+set(CMAKE_PREFIX_PATH "C:/Qt/6.5.1/mingw_64/lib/cmake")
 
 find_package(Qt6 COMPONENTS
         Core
         Gui
         Widgets
         Qml
+        Multimedia
         REQUIRED)
 
-add_executable(untitled2 sources.qrc main.cpp windows/mainwindow.h windows/mainwindow.cpp Entity/Entity.cpp Entity/Entity.h
+add_executable(untitled sources.qrc main.cpp windows/mainwindow.h windows/mainwindow.cpp Entity/Entity.cpp Entity/Entity.h
         Entity/NPC.cpp Entity/NPC.h Entity/Person.cpp Entity/Person.h workDirrectory/Controller.cpp
         workDirrectory/Controller.h "LocationsAndObjects/Location.cpp" "LocationsAndObjects/Location.h"
         "LocationsAndObjects/Block.cpp" "LocationsAndObjects/Block.h" "LocationsAndObjects/Object.cpp"
@@ -26,17 +27,18 @@ add_executable(untitled2 sources.qrc main.cpp windows/mainwindow.h windows/mainw
 
 find_package(Qt6 REQUIRED COMPONENTS Gui)
 
-target_link_libraries(untitled2
+target_link_libraries(untitled
         Qt6::Core
         Qt6::Gui
         Qt6::Widgets
         Qt6::Qml
+        Qt6::Multimedia
         )
 
 set(RESOURCE_FILES
         images/tmp.jpg)
 
-set_target_properties(untitled2 PROPERTIES
+set_target_properties(untitled PROPERTIES
         MACOSX_BUNDLE TRUE
         MACOSX_FRAMEWORK_IDENTIFIER org.cmake.ExecutableTarget
         RESOURCE "${RESOURCE_FILES}")

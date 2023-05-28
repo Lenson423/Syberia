@@ -42,7 +42,7 @@ void AnotherWindow::paintEvent(QPaintEvent *event) {
         if (!inMoovements) {
             painter.drawPixmap(controller.getPerson().getPosition(), QPixmap(":/sources/character.png"));
         } else {
-            QString tmp = ":/sources/character" + QString::number(QTime::currentTime().second() % 2) + ".png";
+            QString tmp = ":/sources/character" + QString::number(QTime::currentTime().msec() % 2) + ".png";
             painter.drawPixmap(controller.getPerson().getPosition(), QPixmap(tmp));
         }
     } else if (mode == Dialog) {
@@ -138,16 +138,16 @@ void AnotherWindow::keyReleaseEvent(QKeyEvent *event) {
 void AnotherWindow::keyPressEvent(QKeyEvent *event) {
     if (mode == Game) {
         if (event->nativeVirtualKey() == Qt::Key_W) {
-            controller.getPerson().setNewSpeed(controller.getPerson().getSpeed().first, -3);
+            controller.getPerson().setNewSpeed(controller.getPerson().getSpeed().first, -2);
         }
         if (event->nativeVirtualKey() == Qt::Key_A) {
-            controller.getPerson().setNewSpeed(-3, controller.getPerson().getSpeed().second);
+            controller.getPerson().setNewSpeed(-2, controller.getPerson().getSpeed().second);
         }
         if (event->nativeVirtualKey() == Qt::Key_S) {
-            controller.getPerson().setNewSpeed(controller.getPerson().getSpeed().first, 3);
+            controller.getPerson().setNewSpeed(controller.getPerson().getSpeed().first, 2);
         }
         if (event->nativeVirtualKey() == Qt::Key_D) {
-            controller.getPerson().setNewSpeed(3, controller.getPerson().getSpeed().second);
+            controller.getPerson().setNewSpeed(2, controller.getPerson().getSpeed().second);
         }
         if (event->key() == Qt::Key_Escape) {
             screen = QWidget::grab();
