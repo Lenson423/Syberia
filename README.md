@@ -13,8 +13,8 @@ what the character can do: go to another location, take an
 item, talk to the character, etc.</h6>
 
 <p>
-<img src="sources/for_readme1.png" width=49% alt="picture1">
-<img src="sources/for_readme2.png" width = 49% alt="picture2">
+<img href="sources/for_readme1.png" width=49% alt="picture1">
+<img href="sources/for_readme2.png" width = 49% alt="picture2">
 </p>
 
 <h2 align="center"> Instalation</h2>
@@ -22,5 +22,5 @@ item, talk to the character, etc.</h6>
 <a link = "https://github.com/Lenson423/Syberia/releases/tag/tmp">rar</a>.</h6>
 
 <h2 align="center">Contributing</h2>
-<h6><a link = "https://github.com/yandex/CMICOT/blob/master/CPP_STYLE_GUIDE.md">Code style</a><br>
+<h6><a href = "https://github.com/yandex/CMICOT/blob/master/CPP_STYLE_GUIDE.md">Code style</a><br>
 <a link = "https://github.com/Lenson423">Author</a></h6>
