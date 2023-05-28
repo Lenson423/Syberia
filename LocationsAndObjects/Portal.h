@@ -6,8 +6,11 @@
 class Portal {
 public:
     explicit Portal(int, QRect);
+
     int getNextLocationId();
+
     QRect getPortalBorder();
+
 private:
     int nextLocationId;
     QRect portalBorder;

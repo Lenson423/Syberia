@@ -11,10 +11,12 @@ private:
     QPixmap sprite;
 public:
     NPC() = default;
-    ~NPC() = default;
-    NPC(QPointF, int, const QVector<std::pair<Dialog, QString>>&, const QString&);
 
-    void addDialog(const std::pair<Dialog, QString>&);
+    ~NPC() = default;
+
+    NPC(QPointF, int, const QVector<std::pair<Dialog, QString>> &, const QString &);
+
+    void addDialog(const std::pair<Dialog, QString> &);
 
     QVector<std::pair<Dialog, QString>> getDialogs();
 

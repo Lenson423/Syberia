@@ -12,7 +12,7 @@
     return iClass;
 }
 
-Item::Item(int newId, const QPixmap& newImage, Item::ItemClass item, int x, int y) {
+Item::Item(int newId, const QPixmap &newImage, Item::ItemClass item, int x, int y) {
     id = newId;
     image = newImage;
     iClass = item;

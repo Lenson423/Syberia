@@ -18,8 +18,10 @@ private:
 
 public:
     Level() = default;
+
     ~Level() = default;
-    Level(const QString&);
+
+    Level(const QString &);
 
     QPointF getPersonLocation();
 

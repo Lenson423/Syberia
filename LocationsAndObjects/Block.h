@@ -5,7 +5,7 @@
 
 #include "Object.h"
 
-class Block : public Object {
+class [[maybe_unused]] Block : public Object {
 public:
     Block(int, QPixmap, QSize);
 

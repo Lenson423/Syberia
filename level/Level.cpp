@@ -66,7 +66,6 @@ QPolygonF Level::getBorder() {
 
 QVector<Item> Level::getItems() {
     QString tmp1 = QString(":/level/") + path + QString("/") + path + QString("Items");
-    qDebug() << tmp1;
     QFile file(tmp1);
     file.open(QIODevice::ReadOnly | QIODevice::Text);
     QTextStream in(&file);
