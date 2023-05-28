@@ -13,7 +13,6 @@ find_package(Qt6 COMPONENTS
         Gui
         Widgets
         Qml
-        Multimedia
         REQUIRED)
 
 add_executable(untitled sources.qrc main.cpp windows/mainwindow.h windows/mainwindow.cpp Entity/Entity.cpp Entity/Entity.h
@@ -32,7 +31,6 @@ target_link_libraries(untitled
         Qt6::Gui
         Qt6::Widgets
         Qt6::Qml
-        Qt6::Multimedia
         )
 
 set(RESOURCE_FILES

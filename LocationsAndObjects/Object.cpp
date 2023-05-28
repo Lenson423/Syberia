@@ -4,7 +4,7 @@
 
 #include "Object.h"
 
-void Object::setImage(const QString& filePath) {
+void Object::setImage(const QString &filePath) {
     image = QPixmap(filePath);
 }
 

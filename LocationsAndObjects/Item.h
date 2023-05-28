@@ -11,12 +11,17 @@ public:
     };
 
     [[maybe_unused]] void setClass(ItemClass);
+
     QPoint getPoint();
 
     [[maybe_unused]] ItemClass getClass();
+
     Item() = default;
+
     ~Item() = default;
-    Item(int, const QPixmap&, ItemClass, int, int);
+
+    Item(int, const QPixmap &, ItemClass, int, int);
+
 private:
     ItemClass iClass;
     QPoint point;

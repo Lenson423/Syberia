@@ -22,9 +22,10 @@ public:
     ~SettingsWindow() override;
 
 private:
-    Ui::SettingsWindow* ui;
+    Ui::SettingsWindow *ui;
 
     void paintEvent(QPaintEvent *event) override;
+
     void mousePressEvent(QMouseEvent *event) override;
 };
 

@@ -11,8 +11,6 @@
 #include <QTime>
 #include <QDir>
 #include <QTemporaryDir>
-#include <QAudioOutput>
-#include <QMediaPlayer>
 
 #include "../music/Music.h"
 #include "../workDirrectory/Controller.h"

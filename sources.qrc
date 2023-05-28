@@ -2,6 +2,8 @@
     <qresource>
         <file>sources/background.png</file>
         <file>sources/character.png</file>
+        <file>sources/character3.png</file>
+        <file>sources/character2.png</file>
         <file>sources/character1.png</file>
         <file>sources/character0.png</file>
         <file>sources/enemy.png</file>

@@ -13,7 +13,7 @@ AnotherWindow::AnotherWindow(QWidget *parent) :
 
     QTimer::singleShot(1, this, SLOT(startMusic()));
     connect(&timer, SIGNAL(timeout()), SLOT(updatePicture()));
-    timer.start(20);
+    timer.start(19);
 
     tempDir.setAutoRemove(false);
     connect(&musicTimer, SIGNAL(timeout()), SLOT(startMusic()));
@@ -42,7 +42,7 @@ void AnotherWindow::paintEvent(QPaintEvent *event) {
         if (!inMoovements) {
             painter.drawPixmap(controller.getPerson().getPosition(), QPixmap(":/sources/character.png"));
         } else {
-            QString tmp = ":/sources/character" + QString::number(QTime::currentTime().msec() % 2) + ".png";
+            QString tmp = ":/sources/character" + QString::number(QTime::currentTime().msec() % 4) + ".png";
             painter.drawPixmap(controller.getPerson().getPosition(), QPixmap(tmp));
         }
     } else if (mode == Dialog) {
@@ -184,7 +184,7 @@ bool AnotherWindow::checkNpcPosition(NPC &npc) {
            && distanceBetweenYouAndNpc < 95;
 }
 
-bool AnotherWindow::checkItemPosition(const QRect& rect) {
+bool AnotherWindow::checkItemPosition(const QRect &rect) {
     auto distanceBetweenYouAndItem = (controller.getPerson().getPosition() - rect.topLeft()).manhattanLength();
     return QPolygon(rect).containsPoint(
             AnotherWindow::mapFromGlobal(QCursor::pos()), Qt::OddEvenFill)
@@ -192,7 +192,6 @@ bool AnotherWindow::checkItemPosition(const QRect& rect) {
 }
 
 void AnotherWindow::mousePressEvent(QMouseEvent *event) {
-    qDebug() << event->pos();
     if (event->button() == 1) {
         if (mode == Game) {
             for (auto npc: controller.getLocation().getNpc()) {
@@ -253,7 +252,6 @@ void AnotherWindow::mousePressEvent(QMouseEvent *event) {
                     mode = ViewingOfImage;
                     tmpItem = &it.value();
                     repaint();
-                    qDebug() << mode;
                 }
             }
         }

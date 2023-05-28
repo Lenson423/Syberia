@@ -22,17 +22,18 @@ public:
     MainWindow(QWidget *parent = nullptr);
 
     ~MainWindow();
+
 private:
     Ui::MainWindow *ui;
 
-    QGraphicsScene* scene;
+    QGraphicsScene *scene;
 
-    QGraphicsView* view;
+    QGraphicsView *view;
 
-    QPushButton* newGameButton;
-    QPushButton* loadGameButton;
-    QPushButton* settingsButton;
-    QPushButton* exitButton;
+    QPushButton *newGameButton;
+    QPushButton *loadGameButton;
+    QPushButton *settingsButton;
+    QPushButton *exitButton;
 
     AnotherWindow *gameWindow;
     SettingsWindow *settingsWindow;
@@ -41,8 +42,11 @@ protected:
     void paintEvent(QPaintEvent *event) override;
 
 private slots:
+
     void onNewGameButtonClicked();
+
     void onLoadGameButtonClicked();
+
     void settingsButtonClicked();
 };
 

@@ -9,7 +9,8 @@ protected:
     int id;
     QPixmap image;
 public:
-    void setImage(const QString&);
+    void setImage(const QString &);
+
     QPixmap getImage();
 
     [[nodiscard]] int getId() const;
