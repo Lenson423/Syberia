@@ -3,7 +3,7 @@
 
 #include <QVector>
 #include <QRect>
-#include "../Inventory.h"
+#include "Inventory.h"
 #include "../Entity/Person.h"
 #include "../LocationsAndObjects/Location.h"
 
@@ -35,8 +35,8 @@ public:
     Location getLocation();
     Person& getPerson();
     Inventory getInventory();
-    bool dialIsActive();
-    int getDialogNum();
+    bool dialIsActive() const;
+    int getDialogNum() const;
     QHash<QRect, int> getItemsPosition();
     QHash<QRect, Item> getItemsInInventory();
 public:

@@ -18,6 +18,8 @@ AnotherWindow::AnotherWindow(QWidget *parent) :
     tempDir.setAutoRemove(false);
     connect(&musicTimer, SIGNAL(timeout()), SLOT(startMusic()));
     musicTimer.start(49000);
+
+    connect(&dialogTimer, SIGNAL(timeout()), SLOT(nextDialog()));
 }
 
 AnotherWindow::~AnotherWindow() {
@@ -47,7 +49,11 @@ void AnotherWindow::paintEvent(QPaintEvent *event) {
         painter.drawPixmap(0, 0, QPixmap(":/sources/dialog_font.png"));
         painter.drawPixmap(175, 400, QPixmap(":/sources/dialog_border.png"));
         if (controller.dialIsActive()) {
-            painter.drawText(200, 435, currDialog.getReplics()[currDialog.getCurrentStep()]);
+            auto tmp = currDialog.getReplics()[currDialog.getCurrentStep()].split("\\n");
+            for (int i = 0; i < tmp.size(); ++i) {
+                dialogTimer.start(static_cast<int>(tmp.size()) * 5000);
+                painter.drawText(200, 435 + 15 * i, tmp[i]);
+            }
             currDialog.inkCurrentStep();
             if (currDialog.getCurrentStep() == currDialog.getReplics().size()) {
                 currDialog.eraseCurrentStep();
@@ -70,11 +76,10 @@ void AnotherWindow::paintEvent(QPaintEvent *event) {
         painter.drawPixmap(50, 0, QPixmap(":/sources/settings.png"));
         painter.drawPixmap(100, 0, QPixmap(":/sources/save.png"));
 
-        int i = 1;
-        for (Item item: controller.getInventory().getItems()) {
-            painter.drawPixmap(25, 110 * i, QPixmap(":/sources/item_border.png"));
-            painter.drawPixmap(35, 110 * i + 10, 80, 80, item.getImage());
-            ++i;
+        QHash<QRect, Item> tmp = controller.getItemsInInventory();
+        for (auto it = tmp.begin(); it != tmp.end(); ++it) {
+            painter.drawPixmap(it.key(), QPixmap(":/sources/item_border.png"));
+            painter.drawPixmap(it.key().topLeft().x() + 10, it.key().topLeft().y() + 10, 80, 80, it.value().getImage());
         }
     } else if (mode == ViewingOfImage) {
         painter.drawPixmap(0, 0, QPixmap(":/sources/viewing_image_background.png"));
@@ -152,8 +157,8 @@ void AnotherWindow::keyPressEvent(QKeyEvent *event) {
         }
     } else if (mode == Mode::Dialog) {
         if (event->key() == Qt::Key_Space) {
-            startMusicEffect(":/sources/dialog_click_music.wav");
-            repaint();
+            dialogTimer.stop();
+            nextDialog();
         } else if (event->key() == Qt::Key_Escape && !controller.dialIsActive()) {
             mode = Game;
         }
@@ -177,6 +182,13 @@ bool AnotherWindow::checkNpcPosition(NPC &npc) {
     return QPolygonF(QRectF(npc.getPosition(), QSize(40, 70))).containsPoint(
             AnotherWindow::mapFromGlobal(QCursor::pos()), Qt::OddEvenFill)
            && distanceBetweenYouAndNpc < 95;
+}
+
+bool AnotherWindow::checkItemPosition(const QRect& rect) {
+    auto distanceBetweenYouAndItem = (controller.getPerson().getPosition() - rect.topLeft()).manhattanLength();
+    return QPolygon(rect).containsPoint(
+            AnotherWindow::mapFromGlobal(QCursor::pos()), Qt::OddEvenFill)
+           && distanceBetweenYouAndItem < 95;
 }
 
 void AnotherWindow::mousePressEvent(QMouseEvent *event) {
@@ -208,7 +220,7 @@ void AnotherWindow::mousePressEvent(QMouseEvent *event) {
 
             auto tmp = controller.getItemsPosition();
             for (auto it = tmp.begin(); it != tmp.end(); ++it) {
-                if (it.key().contains(event->pos())) {
+                if (checkItemPosition(it.key())) {
                     controller.addItemToInventory(controller.getLocation().getItem()[it.value()]);
                 }
             }
@@ -315,5 +327,10 @@ void AnotherWindow::startMusicEffect(const QString &link) {
         QFile::copy(link, tempFile);
         music.play(QFileInfo(tempFile));
     }
+}
+
+void AnotherWindow::nextDialog() {
+    startMusicEffect(":/sources/dialog_click_music.wav");
+    repaint();
 }
 

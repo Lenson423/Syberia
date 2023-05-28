@@ -25,10 +25,12 @@
         <file>level/level1/level1Portal</file>
         <file>level/level1/level1Items</file>
         <file>level/level3/level3PersLoc</file>
+        <file>level/level3/level3Items</file>
         <file>level/level3/level3Border</file>
         <file>level/level3/level3Font</file>
         <file>level/level3/level3Portal</file>
         <file>level/level2/level2PersLoc</file>
+        <file>level/level2/level2Items</file>
         <file>level/level2/level2Border</file>
         <file>level/level2/level2Font</file>
         <file>level/level2/level2Portal</file>
@@ -42,6 +44,7 @@
         <file>sources/old_woman.png</file>
         <file>sources/item_border.png</file>
         <file>sources/item1.png</file>
+        <file>sources/item2.png</file>
         <file>sources/viewing_image_background.png</file>
     </qresource>
     <qresource lang="ru">

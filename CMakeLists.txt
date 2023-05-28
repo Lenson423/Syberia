@@ -19,10 +19,10 @@ add_executable(untitled2 sources.qrc main.cpp windows/mainwindow.h windows/mainw
         Entity/NPC.cpp Entity/NPC.h Entity/Person.cpp Entity/Person.h workDirrectory/Controller.cpp
         workDirrectory/Controller.h "LocationsAndObjects/Location.cpp" "LocationsAndObjects/Location.h"
         "LocationsAndObjects/Block.cpp" "LocationsAndObjects/Block.h" "LocationsAndObjects/Object.cpp"
-        "LocationsAndObjects/Object.h" Dialog.cpp Dialog.h "LocationsAndObjects/Item.cpp" "LocationsAndObjects/Item.h"
-        Inventory.cpp Inventory.h  windows/AnotherWindow.cpp windows/AnotherWindow.h level/Level.cpp level/Level.h
+        "LocationsAndObjects/Object.h" workDirrectory/Dialog.cpp workDirrectory/Dialog.h "LocationsAndObjects/Item.cpp" "LocationsAndObjects/Item.h"
+        workDirrectory/Inventory.cpp workDirrectory/Inventory.h windows/AnotherWindow.cpp windows/AnotherWindow.h level/Level.cpp level/Level.h
         LocationsAndObjects/Portal.cpp LocationsAndObjects/Portal.h windows/SettingsWindow.cpp windows/SettingsWindow.h
-        Music.cpp Music.h)
+        music/Music.cpp music/Music.h)
 
 find_package(Qt6 REQUIRED COMPONENTS Gui)
 

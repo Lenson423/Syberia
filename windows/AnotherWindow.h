@@ -12,25 +12,30 @@
 #include <QDir>
 #include <QTemporaryDir>
 
-#include "../Music.h"
+#include "../music/Music.h"
 #include "../workDirrectory/Controller.h"
 
 namespace Ui {
     class AnotherWindow;
 }
 
-class AnotherWindow : public QMainWindow
-{
+class AnotherWindow : public QMainWindow {
 Q_OBJECT
 
 public:
     explicit AnotherWindow(QWidget *parent = nullptr);
+
     ~AnotherWindow() override;
-    void loadFile(const QString&);
+
+    void loadFile(const QString &);
 
 protected:
-    bool checkNpcPosition(NPC&);
-    bool checkPortalPosition(Portal&);
+    bool checkNpcPosition(NPC &);
+
+    bool checkPortalPosition(Portal &);
+
+    bool checkItemPosition(const QRect &);
+
     void saveFile();
 
     void mousePressEvent(QMouseEvent *) override;
@@ -42,11 +47,12 @@ private:
     SettingsWindow *settingsWindow;
 
     QTimer timer;
+    QTimer dialogTimer;
     QTimer musicTimer;
 
     Controller controller;
 
-    enum Mode{
+    enum Mode {
         Game = 0,
         Inventory,
         Dialog,
@@ -59,20 +65,29 @@ private:
     Mode mode = Game;
 
     class Dialog currDialog;
+
     QPixmap screen;
     QTemporaryDir tempDir;
     static constexpr int LevelCount = 3;
-    Item* tmpItem;
+    Item *tmpItem;
 private
     slots:
 
     void updatePicture();
+
     void startMusic();
+
     void keyPressEvent(QKeyEvent *) override;
+
     void keyReleaseEvent(QKeyEvent *) override;
+
     void closeEvent(QCloseEvent *event) override;
+
     void loadCurrnetDialog();
-    void startMusicEffect(const QString&);
+
+    void startMusicEffect(const QString &);
+
+    void nextDialog();
 };
 
 #endif //UNTITLED2_ANOTHERWINDOW_H

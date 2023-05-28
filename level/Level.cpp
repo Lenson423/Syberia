@@ -50,15 +50,15 @@ QVector<NPC> Level::getNPC() {
     return npc;
 }
 
-QPolygon Level::getBorder() {
+QPolygonF Level::getBorder() {
     QString tmp1 = QString(":/level/") + path + QString("/") + path + QString("Border");
     QFile file(tmp1);
     file.open(QIODevice::ReadOnly | QIODevice::Text);
     QTextStream in(&file);
-    QList<QPoint> vertex;
+    QList<QPointF> vertex;
     while (!in.atEnd()) {
         QString line = in.readLine();
-        vertex.push_back(QPoint(line.split(" ")[0].toInt(), line.split(" ")[1].toInt()));
+        vertex.push_back(QPointF(line.split(" ")[0].toDouble(), line.split(" ")[1].toDouble()));
         in.flush();
     }
     return {vertex};
@@ -66,6 +66,7 @@ QPolygon Level::getBorder() {
 
 QVector<Item> Level::getItems() {
     QString tmp1 = QString(":/level/") + path + QString("/") + path + QString("Items");
+    qDebug() << tmp1;
     QFile file(tmp1);
     file.open(QIODevice::ReadOnly | QIODevice::Text);
     QTextStream in(&file);
