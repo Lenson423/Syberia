@@ -19,7 +19,7 @@ item, talk to the character, etc.</h6>
 
 <h2 align="center"> Instalation</h2>
 <h6>To run this application, download the GitHub releases
-<a href = "https://github.com/Lenson423/Syberia/releases/tag/tmp">rar</a>.</h6>
+<a href = "https://github.com/Lenson423/Syberia/releases/tag/final">rar</a>.</h6>
 
 <h2 align="center">Contributing</h2>
 <h6><a href = "https://github.com/yandex/CMICOT/blob/master/CPP_STYLE_GUIDE.md">Code style</a><br>
