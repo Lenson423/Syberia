@@ -13,6 +13,7 @@
 #include <QTemporaryDir>
 
 #include "../music/Music.h"
+#include "../Event.h"
 #include "../workDirrectory/Controller.h"
 
 namespace Ui {
@@ -51,6 +52,7 @@ private:
     QTimer musicTimer;
 
     Controller controller;
+    Event myEvent;
 
     enum Mode {
         Game = 0,

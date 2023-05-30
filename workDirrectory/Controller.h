@@ -34,8 +34,8 @@ public:
     QVector<QRect> getButtonsForDialog();
     Location getLocation();
     Person& getPerson();
-    Inventory getInventory();
-    bool dialIsActive() const;
+    Inventory &getInventory();
+    [[nodiscard]] bool dialIsActive() const;
     int getDialogNum() const;
     QHash<QRect, int> getItemsPosition();
     QHash<QRect, Item> getItemsInInventory();

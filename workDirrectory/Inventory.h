@@ -10,6 +10,7 @@ private:
     QHash<int, Item> items;
 public:
     Inventory() = default;
+    ~Inventory() = default;
 
     QHash<int, Item>  getItems();
     void addItem(const Item &);

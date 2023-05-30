@@ -198,6 +198,9 @@ void AnotherWindow::mousePressEvent(QMouseEvent *event) {
                 if (checkNpcPosition(npc)) {
                     controller.setCurrentNpc(npc);
                     controller.clearButtonForDialog();
+                    for (const auto &item: controller.getInventory().getItems()) {
+                        myEvent.itemInfluentsOnNpc(item.getId(), *controller.getNpc());
+                    }
                     for (int i = 0; i < controller.getNpc()->getDialogs().size(); ++i) {
                         controller.addButtonForDialog(QRect(200, 422 + 20 * i, 200, 20));
                     }
@@ -230,6 +233,7 @@ void AnotherWindow::mousePressEvent(QMouseEvent *event) {
                             (AnotherWindow::mapFromGlobal(QCursor::pos()), Qt::OddEvenFill)) {
                         controller.setDialogActivity(true);
                         controller.setCurrentDialogNum(i);
+                        myEvent.npcInfluentsOnItem(controller.getNpc()->getId(), controller.getDialogNum(), controller);
                         loadCurrnetDialog();
                         startMusicEffect(":/sources/dialog_click_music.wav");
                         break;
