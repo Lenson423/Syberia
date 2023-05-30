@@ -36,6 +36,8 @@
         <file>level/level2/level2Border</file>
         <file>level/level2/level2Font</file>
         <file>level/level2/level2Portal</file>
+        <file>level/itemInfluentsOnNpc</file>
+        <file>level/npcInfluentsOnItem</file>
         <file>sources/settings.png</file>
         <file>sources/save.png</file>
         <file>sources/menu.png</file>

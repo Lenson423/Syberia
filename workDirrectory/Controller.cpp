@@ -7,6 +7,15 @@ void Controller::addItemToInventory(const Item &item) {
 
 void Controller::deleteItemToInventory(int id) {
     inventory.deleteItemWithId(id);
+    for(const auto& items : itemsInInventory){
+        for(auto it = itemsInInventory.begin(); it != itemsInInventory.end(); ++it){
+            if(it.value().getId() == id){
+                itemsInInventory.erase(it);
+                break;
+            }
+        }
+    }
+    //itemsInInventory.(QRect(25, 110 * inventory.getItems().size(), 100, 100), item);
 }
 
 void Controller::loadNewLocation(int path) {
@@ -30,7 +39,7 @@ Person &Controller::getPerson() {
     return person;
 }
 
-Inventory Controller::getInventory() {
+Inventory& Controller::getInventory() {
     return inventory;
 }
 

@@ -22,7 +22,7 @@ add_executable(untitled sources.qrc main.cpp windows/mainwindow.h windows/mainwi
         "LocationsAndObjects/Object.h" workDirrectory/Dialog.cpp workDirrectory/Dialog.h "LocationsAndObjects/Item.cpp" "LocationsAndObjects/Item.h"
         workDirrectory/Inventory.cpp workDirrectory/Inventory.h windows/AnotherWindow.cpp windows/AnotherWindow.h level/Level.cpp level/Level.h
         LocationsAndObjects/Portal.cpp LocationsAndObjects/Portal.h windows/SettingsWindow.cpp windows/SettingsWindow.h
-        music/Music.cpp music/Music.h)
+        music/Music.cpp music/Music.h Event.cpp Event.h)
 
 find_package(Qt6 REQUIRED COMPONENTS Gui)
 
